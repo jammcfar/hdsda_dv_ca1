@@ -1,0 +1,43 @@
+#+TITLE: Ca1
+
+* General Notes
+- Do several types:
+    Comparison (among items and over time)
+    Distribution (Single variables)
+    Relationship (Scatter or bubble)
+    Composition (Over time and static)
+    Also a map
+    Network diagram somehow?
+    Also Sankey
+    And the fast food squared dot plot thing with annotations
+- Figure out early what we want to convey.
+- Could get all the data and talk about the reporting of the different countries!!!
+- Under Cross cutting topics, could merge a bunch of the healthcare ones...
+** Justifications for dataset
+- We are interested in it...
+** Justifications for graphs
+- We are using graphs to facilitate understanding
+- To solve specific problems
+- It is a quick easy way to convey concepts in a universal manner.
+- Top down processing theory, taking in sensory info, interpreting it through past experiences and making inference.
+- Summary statistics don't tell you everything about the data (see Anscombes quartet)
+- Mark and shape are most important (Ward, Lecture 3). Then things like size, brightness, colour, etc.
+- One graph can provide context for another (?? just a thought)
+- Dieter Rams - Good design is innovative, makes a product useful, aesthetic, etc.
+- Kirk (2016) - Principles of good design: Innovative, accessible, elegant.
+  - For accessible consider balance of reward vs effort.
+- Norman (2013) - Human-centred design to solve the correct problem. Also see design thinking (Kelley and Brown)
+- A visual can communicate info in a smaller space than a table
+- Can make communicate complex ideas simply, see also Tuftes principles of graphical excellence. Greatest number of ideas in shortest time, in smallest space.
+- The visual is leading and draws the eye along it (e.g. a slowly ascending bar chart)
+- Schneiderman - Overview first, zoom and filter, then details on demand
+- Role of iconic, short and long term memory.
+- Pre-attentive attributes (things that catch the eye immediately). Different examples such as length, shape, size, colour, motion, grouping, etc. Be sure to touch on this. Also "uniqueness".
+- Quantitative precision (pie vs bar)
+- Also analytical patterns (High v low, clusters and gaps, narrow and wide distribution, etc.)
+- Gestalt principles to highlight patterns and downplay others (proximity, connection, enclosure, etc.) Can help reduce noise and show relationships more clearly.
+- Provide context for parts of visual to engender action
+- What decision do I want to viewer to make
+- What decision do I want to drive?
+- This has a great bar chart examplehttps://uk.sagepub.com/sites/default/files/upm-binaries/81563_Chapter_1.pdf?utm_content=bufferace38&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+- That paper also mentions the Pictorial Superiority effect and some of the above concepts with references.
