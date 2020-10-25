@@ -13,6 +13,7 @@
 - Figure out early what we want to convey.
 - Could get all the data and talk about the reporting of the different countries!!!
 - Under Cross cutting topics, could merge a bunch of the healthcare ones...
+- Be sure to highlight how metrics change over time as new EU countries are added (e.g. Quality of life indicators)
 ** Justifications for dataset
 - We are interested in it...
 ** Justifications for graphs
@@ -41,3 +42,15 @@
 - What decision do I want to drive?
 - This has a great bar chart examplehttps://uk.sagepub.com/sites/default/files/upm-binaries/81563_Chapter_1.pdf?utm_content=bufferace38&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 - That paper also mentions the Pictorial Superiority effect and some of the above concepts with references.
+** Digital economy / How the internet supports businesses
+- Start off with high level map of europe
+** Spending you money online
+- We have:
+    General internet usage and levels of access
+    All the types of things people use the internet for (e.g. emails, social networks, banking, etc.)
+    Usage of ordering goods and services (and from within EU) (Last online purchase within 3 months, 12 months, etc.)
+    Businesses engaged in e-commerce
+    Not just buying things; investing services, insurance policies, getting credit and loans, banking
+    What kind of problems do people have? Fraud, problems with complaints, wrong/damaged item?
+    Why dont people buy things online: Like to shop in person, dont have skills, long delivery times, security concerns, etc
+    TRY TO FIND RETAIL SALES
