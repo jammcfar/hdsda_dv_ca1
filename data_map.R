@@ -5,6 +5,7 @@ library(here)
 library(maps)
 library(rworldmap)
 library(viridis)
+library(ggstance)
 
 df_in <- read_csv("df_individuals.csv")
 df_dic <- read_csv("dict.csv")
@@ -94,7 +95,7 @@ the_cs <- c("Albania", "Andorra", "Armenia", "Austria", "Azerbaijan",
 ## Retrievethe map data
 euro_maps <- map_data("world", region = the_cs)
 
-sort(unique(euro_maps$region))
+#sort(unique(euro_maps$region))
 
 # Compute the centroid as the mean longitude and lattitude
 # Used as label coordinate for country's names
@@ -102,17 +103,17 @@ region.lab.data <- euro_maps %>%
   group_by(region) %>%
   summarise(long = mean(long), lat = mean(lat))
 
-glimpse(euro_maps)
+#glimpse(euro_maps)
 
-min(euro_maps$long)
-max(euro_maps$long)
-min(euro_maps$lat)
-max(euro_maps$lat)
+#min(euro_maps$long)
+#max(euro_maps$long)
+#min(euro_maps$lat)
+#max(euro_maps$lat)
 
 ##join up
 
-unique(df_r$demograph)
-unique(df_r$measure)
+#unique(df_r$demograph)
+#unique(df_r$measure)
 
 df_for_j <-
   df_filt %>%
@@ -143,7 +144,7 @@ ggplot(aes(x = long, y = lat, group = group)) +
   coord_cartesian(x = c(-22, 38), y = c(36, 70))
 
 ## how much do they spend?
-unique(df_for_j$measure)
+#unique(df_for_j$measure)
 
 #df_for_j %>%
 #  filter(demograph == "All Individuals",
@@ -166,9 +167,15 @@ mutate(measure = case_when(str_detect(measure, "50 euro") ~ "< 50",
                            str_detect(measure, "1000 euro") ~ "1000+",
                            str_detect(measure, "100 euro") ~ "100+"
                            )
-       )
+       ) %>%
+filter(measure != "100+") %>%
+mutate(measure = fct_relevel(measure, c("< 50", "50 - 99", "100 - 499", "500 - 999", "1000+")))
 
-View(df_spending)
+
+
+
+
+#View(df_spending)
 
 glimpse(df_spending)
 
@@ -187,6 +194,39 @@ df_spending %>%
   geom_col() +
   theme_light()
 
+## Now for a dotplot of top online purchases
+## with the countries as dots
+df_top5_buys <-
+  df_for_j %>%
+  filter(demograph == "All Individuals",
+         str_detect(measure, "Online purchases: "),
+         !str_detect(geo, "Euro"),
+         str_detect(unit_desc, "ordered good")) %>%
+  filter(!str_detect(measure, "sellers"))
+
+##just get top 5 by median
+top5_meds <-
+df_top5_buys %>%
+  group_by(measure) %>%
+  summarise(med_m = median(val, na.rm = T)) %>%
+  ungroup() %>%
+  arrange(desc(med_m))
+
+top5_c <-
+  top5_meds %>%
+  select(measure) %>%
+  as_vector()
+
+df_top5_buys %>%
+  filter(measure %in% top5_c[1:5]) %>%
+  ggplot(aes(x = measure, y = val)) +
+  geom_dotplot(binaxis = "y",
+               stackdir = "center",
+               binwidth = 0.15,
+               dotsize = 10
+               ) +
+  theme_bw()+
+  coord_flip()
 
 ###JUNK=========================================
 
