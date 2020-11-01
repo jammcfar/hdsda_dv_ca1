@@ -40,7 +40,7 @@
 - Provide context for parts of visual to engender action
 - What decision do I want to viewer to make
 - What decision do I want to drive?
-- This has a great bar chart examplehttps://uk.sagepub.com/sites/default/files/upm-binaries/81563_Chapter_1.pdf?utm_content=bufferace38&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+- This has a great bar chart example https://uk.sagepub.com/sites/default/files/upm-binaries/81563_Chapter_1.pdf?utm_content=bufferace38&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 - That paper also mentions the Pictorial Superiority effect and some of the above concepts with references.
 ** Digital economy / How the internet supports businesses
 - Start off with high level map of europe

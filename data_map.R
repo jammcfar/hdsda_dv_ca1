@@ -6,6 +6,7 @@ library(maps)
 library(rworldmap)
 library(viridis)
 library(ggstance)
+library(corrr)
 
 df_in <- read_csv("df_individuals.csv")
 df_dic <- read_csv("dict.csv")
@@ -41,7 +42,7 @@ glimpse(df_dic)
 
 
 
-unique(df_r$demograph)
+#unique(df_r$demograph)
 
 ## come back to this and add more later
 demo_filt <- c("All Individuals",
@@ -143,13 +144,152 @@ ggplot(aes(x = long, y = lat, group = group)) +
 ##  theme(legend.position = "none") +
   coord_cartesian(x = c(-22, 38), y = c(36, 70))
 
-## how much do they spend?
+
+## dual histogram of spending in last 12 months
+df_for_j %>%
+  filter(demograph %in% c("Mobile internet users",
+               "Non-users of mobile internet"),
+         measure == "Last online purchase: in the 12 months",
+         unit_desc == "Percentage of individuals") %>%
+  ggplot(aes(x = val, colour = demograph, fill = demograph)) +
+  geom_histogram(position = "identity", alpha = 0.5) +
+  geom_density() +
+  theme_bw() +
+  scale_x_continuous(limits = c(0, 100))
+
+## scatter plot
+df_scat <-
+df_for_j %>%
+  filter(demograph == "All Individuals",
+         unit_desc == "Percentage of individuals",
+         str_detect(measure, "from sellers from|from national|from sellers with|problems when buying/ordering")) %>%
+  filter(!str_detect(geo, "Euro")) %>%
+  pivot_wider(names_from = measure, values_from = val)
+
+df_scat <-
+df_scat %>%
+  select(c(1:13, 15))
+
+colnames(df_scat)[10:14] <- c("sellers_national",
+                              "sellers_eu",
+                              "sellers_unknown",
+                              "sellers_noneu",
+                              "problems")
+unique(df_scat$problems)
+
+df_scat <-
+df_scat %>%
+  select(geo, sellers_national, sellers_eu, sellers_unknown, sellers_noneu, problems) %>%
+  group_by(geo) %>%
+summarise_each(funs(sum(., na.rm = TRUE)))
+
+df_scat %>%
+  pivot_longer(cols = sellers_national:sellers_noneu) %>%
+  ggplot(aes(x = problems, y = value, colour = name)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_bw()
+
+
+#%>%
+#  pivot_longer(cols = 2:5) %>%
+#  ggplot(aes(x = problems, y = value, colour = name)) +
+#  geom_point()
+
+
+df_scat %>%
+  ggplot(aes(x = problems_perc, y = value, colour = seller)) +
+  geom_point() +
+  theme_bw()
+
+
+## a clustered scatterplot matrix=============================================
+## lets go for what is bought vs problems people have=========================
+
+df_for_cor <-
+df_for_j %>%
+  filter(demograph == "All Individuals",
+         str_detect(measure, "Online purchases: |encountered the following problem"),
+         unit_desc == "Percentage of individuals",
+         !str_detect(geo, "Euro")) %>%
+select(measure, val) %>%
+rowid_to_column("id") %>%
+pivot_wider(id_cols = id, names_from = measure, values_from = val)
+
+cordf <-
+df_for_cor %>%
+##  select(-id) %>%
+  group_by(id) %>%
+summarise_each(funs(sum(., na.rm = TRUE))) %>%
+ungroup() %>%
+select(-id) %>%
+correlate()
+
+cordf <-
+cordf %>%
+  select(-starts_with('Online purchases')) %>%
+  filter(!str_detect(rowname, "Individuals"))
+
+cordf %>%
+  pivot_longer(cols = 2:length(cordf)) %>%
+  ggplot(aes(x = rowname, y = name, size = value)) +
+  geom_point() +
+  theme_bw()
+
+## try another one... Age and encountering problems
+df_cor2 <-
+df_r %>%
+  filter(str_detect(demograph, "years old"),
+        unit_desc == "Percentage of individuals",
+        !str_detect(geo, "Euro"),
+        str_detect(measure, "months, haven't")) %>%
+  mutate(geo = case_when(geo == "United Kingdom" ~ "UK",
+                         geo == "North Macedonia" ~ "Macedonia",
+                         geo == "Germany (until 1990 former territory of the FRG)" ~ "Germany",
+                         geo == "Kosovo (under United Nations Security Council Resolution 1244/99)" ~ "Kosovo",
+                         geo == "Czechia" ~ "Czech Republic",
+                         TRUE ~ geo))
+
+df_cor_split <-
+df_cor2 %>%
+  filter(str_detect(demograph, "Individuals")) %>%
+  select(demograph, measure, val, geo)
+
+##use spearmans rho on age group
+unique(df_cor_split$demograph)
+df_cor_bin <-
+df_cor_split %>%
+  mutate(age_bin = case_when(str_detect(demograph, "15") ~ 1,
+                             str_detect(demograph, "16") ~ 2,
+                             str_detect(demograph, "25 to 34") ~ 3,
+                             str_detect(demograph, "35 to 44") ~ 4,
+                             str_detect(demograph, "45 to 54") ~ 5,
+                             str_detect(demograph, "55 to 74") ~ 6,
+                             str_detect(demograph, "75") ~ 7,
+                             TRUE ~ 0)) %>%
+  filter(age_bin != 0, !is.na(val))
+
+unique(df_cor_bin$age_bin)
+
+
+df_cor_bin %>%
+  group_by(measure) %>%
+  summarise(spear = cor(val, age_bin, method = "spearman"))
+
+#%>%
+#  pivot_wider(names_from = measure, values_from = val) %>%
+# correlate()
+
+
+
+## how much do they spend?===========================================================
 #unique(df_for_j$measure)
 
 #df_for_j %>%
 #  filter(demograph == "All Individuals",
 #         str_detect(measure, "1000 euro"),
 #         geo == "European Union - 28 countries (2013-2020)")
+
 
 
 df_spending <-
@@ -223,10 +363,51 @@ df_top5_buys %>%
   geom_dotplot(binaxis = "y",
                stackdir = "center",
                binwidth = 0.15,
-               dotsize = 10
+               dotsize = 10,
+               alpha = 0.5
                ) +
   theme_bw()+
   coord_flip()
+
+
+## do a chart over time==============================
+
+df_years <- read_csv(here("df_years.csv"))
+
+df_years_r <- df_years %>%
+  left_join(df_dic, by = c("indic_is" = "code")) %>%
+  left_join(df_dic, by = c("ind_type" = "code")) %>%
+  left_join(df_dic, by = c("unit" = "code")) %>%
+  left_join(regions_dic,
+            by = c("geo.time" = "code")
+            ) %>%
+#  select(year,
+#         measure = "details.x",
+#         demograph = "details.y",
+#         geo = "desc",
+#         val
+#         )
+  rename(measure = details.x,
+         demograph = details.y,
+         geo = desc,
+         unit_desc = details)
+
+##many options for line graph
+##lets do frequecy again for now
+df_for_line <-
+  df_years_r %>%
+  filter(str_detect(measure, "from sellers from|from sellers abroad"),
+         unit_desc == "Percentage of individuals",
+         geo == "European Union - 28 countries (2013-2020)") %>%
+  mutate(measure = str_remove(measure, "Online purchases: "))
+
+df_for_line %>%
+  ggplot(aes(x = year, y = val, colour = measure)) +
+  geom_path() +
+  theme_grey()
+
+
+
 
 ###JUNK=========================================
 
@@ -241,5 +422,24 @@ df_top5_buys %>%
 
 
 #glimpse(e_map)
+
+
+df_r <- df_in %>%
+  left_join(df_dic, by = c("indic_is" = "code")) %>%
+  left_join(df_dic, by = c("ind_type" = "code")) %>%
+  left_join(df_dic, by = c("unit" = "code")) %>%
+  left_join(regions_dic,
+            by = c("geo.time" = "code")
+            ) %>%
+#  select(year,
+#         measure = "details.x",
+#         demograph = "details.y",
+#         geo = "desc",
+#         val
+#         )
+  rename(measure = details.x,
+         demograph = details.y,
+         geo = desc,
+         unit_desc = details)
 
 #ggmap(e_map)

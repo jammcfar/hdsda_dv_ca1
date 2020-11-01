@@ -69,6 +69,8 @@ for(i in 1:length(files_2_get)){
 
 glimpse(d_list)
 
+
+
 df <- do.call(rbind, d_list)
 
 ##clean data
