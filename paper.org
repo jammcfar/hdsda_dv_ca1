@@ -1,0 +1,8 @@
+#+TITLE: Paper
+
+* Dataset
+
+The datasets used for this project were based on the theme of online purchasing in the Euopean Union. One would assume that this has risen dramatically over the past couple of decades and will have a number of important consequences for society.
+General questions include which countries buy online the most, and is this concentrated into wealthier countries? What influences consumer behaviour when buying online and what are their strategies for deciding what to buy?
+
+A number of questions are raised such as do national or foreign sellers benefit more from this shift? Are there problems related to buying online?
