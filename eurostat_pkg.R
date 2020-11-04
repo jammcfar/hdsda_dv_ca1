@@ -7,6 +7,16 @@ library(rvest)
 library(ggridges)
 library(ggrepel)
 library(textshape)
+library(here)
+
+##function to capitalise first letter
+firstup <- function(x) {
+  substr(x, 1, 1) <- toupper(substr(x, 1, 1))
+  x
+}
+
+
+`%notin%` <- Negate(`%in%`)
 
 ##for colours
 nord_frost <- c("#8FBCBB", "#88C0D0", "#81A1C1", "#5E81AC")
@@ -19,7 +29,6 @@ nf <- colorRampPalette(nord_frost)(10)
 toc <- get_eurostat_toc()
 
 # Check the first items
-library(knitr)
 kable(head(toc))
 
 id <- search_eurostat("online")$code[2]
@@ -37,15 +46,272 @@ id_proc <- search_eurostat("online")$code[1]
 id_purc <- search_eurostat("Internet purchases")$code[1]
 
 
+dat_purc <- get_eurostat(id_purc,
+                         time_format = "num",
+                         type = "label")
 
-glimpse(dat)
-unique(dat$geo)
-unique(dat$indic_is)
-unique(dat$unit)
-unique(dat$geo)
-unique(dat$ind_type)
 
-## buying strategies
+dat_prob <- get_eurostat(id_problems,
+                       time_format = "num",
+                       type = "label")
+
+##write these just to be safe
+#write_csv(dat,paste0(getwd(), "/", "dat.csv")
+#write_csv(dat_purc,paste0(getwd(), "/", "dat_purc.csv"))
+#write_csv(dat_prob,paste0(getwd(), "/", "dat_prob.csv"))
+
+dat_in <- read_csv(here("dat.csv"))
+dat_purc_in <- read_csv(here("dat_purc.csv"))
+dat_prob_in <- read_csv(here("dat_prob.csv"))
+
+
+#limit to EU countries
+c_omit <- c("Bosnia and Herzegovina",
+            "Montenegro",
+            "Kosovo (under United Nations Security Council Resolution 1244/99)",
+            "North Macedonia",
+            "Serbia",
+            "Turkey",
+            "Iceland",
+            "Switzerland",
+            "Norway")
+
+dat <-
+  dat_in %>%
+  filter(geo %notin% c_omit)
+
+dat_purc <-
+  dat_purc_in %>%
+  filter(geo %notin% c_omit)
+
+dat_prob <-
+  dat_prob_in %>%
+  filter(geo %notin% c_omit)
+
+##read in data_dict to get country codes
+dat_dict <- read_csv(here("eu_dict.csv"))
+
+
+
+dat <- dat %>%
+  left_join(dat_dict, by = c("geo" = "description"))
+
+dat_prob <- dat_prob %>%
+  left_join(dat_dict, by = c("geo" = "description"))
+
+dat_purc <- dat_purc %>%
+  left_join(dat_dict, by = c("geo" = "description"))
+
+## Graph 1: line plot=============================================
+
+
+dat_purc_lines <-
+dat_purc %>%
+filter(ind_type == "All Individuals",
+       str_detect(indic_is, "Frequency of online"),
+       str_detect(geo, "Euro area"),
+       unit == "Percentage of individuals",
+       !str_detect(indic_is, "6 times or more")) %>%
+mutate(indic_is = str_remove(indic_is, "Frequency of online purchases in the last 3 months: ")) %>%
+mutate(indic_is = str_replace(indic_is, "more", "More"))
+
+
+ggplot(dat_purc_lines,
+       aes(x = time,
+           y = values,
+           colour = indic_is,
+           shape = indic_is)) +
+  geom_path(alpha = 0.7) +
+geom_point(size = 3) +
+  theme_classic() +
+  labs(title = "Growth of online purchasing over time",
+       subtitle = "Lines represent data from the EU27/28",
+       x = "Year", y = "Percentage of individuals",
+       colour = "Online purchasing\nin the last 3 months",
+       shape = "Online purchasing\nin the last 3 months")
+
+
+## Graph 2: Chloropleth=======================================================
+
+library(maps)
+library(rworldmap)
+library(viridis)
+
+df_in <- read_csv("df_individuals.csv")
+df_dic <- read_csv("dict.csv")
+
+## read in country codes seperately
+regions_dic <- read_tsv(here("data/dic/geo.dic"), col_names = F)
+colnames(regions_dic) <- c("code", "desc")
+
+df_r <- df_in %>%
+  left_join(df_dic, by = c("indic_is" = "code")) %>%
+  left_join(df_dic, by = c("ind_type" = "code")) %>%
+  left_join(df_dic, by = c("unit" = "code")) %>%
+  left_join(regions_dic,
+            by = c("geo.time" = "code")
+            ) %>%
+  rename(measure = details.x,
+         demograph = details.y,
+         geo = desc,
+         unit_desc = details)
+
+## come back to this and add more later
+demo_filt <- c("All Individuals"
+               )
+
+df_filt <- df_r %>%
+  filter(demograph %in% demo_filt)
+
+world_map <- map_data("world")
+
+## Some EU Contries
+the_cs <- c("Albania", "Andorra", "Armenia", "Austria", "Azerbaijan",
+            "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria",
+            "Croatia", "Cyprus", "Czech Republic",
+            "Denmark",
+            "Estonia",
+            "Finland", "France",
+            "Georgia", "Germany", "Greece",
+            "Hungary",
+            "Iceland", "Ireland", "Italy",
+            "Kosovo",
+            "Latvia", "Liechtenstein", "Lithuania", "Luxembourg",
+            "Macedonia", "Malta", "Moldova", "Monaco", "Montenegro",
+            "Netherlands", "Norway(?!:Svalbard)",
+            "Poland", "Portugal",
+            "Romania", "Russia",
+            "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Switzerland", "Sweden",
+            "Turkey", "Ukraine", "UK",
+            "Vatican")
+
+## Retrievethe map data
+euro_maps <- map_data("world", region = the_cs)
+
+#sort(unique(euro_maps$region))
+
+# Compute the centroid as the mean longitude and lattitude
+# Used as label coordinate for country's names
+region.lab.data <- euro_maps %>%
+  group_by(region) %>%
+  summarise(long = mean(long), lat = mean(lat))
+
+df_for_j <-
+  df_filt %>%
+  mutate(geo = case_when(geo == "United Kingdom" ~ "UK",
+                         geo == "North Macedonia" ~ "Macedonia",
+                         geo == "Germany (until 1990 former territory of the FRG)" ~ "Germany",
+                         geo == "Kosovo (under United Nations Security Council Resolution 1244/99)" ~ "Kosovo",
+                         geo == "Czechia" ~ "Czech Republic",
+                         TRUE ~ geo))
+
+#now go into chloropleth
+df_j <-
+  df_for_j %>%
+  filter(demograph == "All Individuals", measure == "Last online purchase: in the 12 months") %>%
+  select(measure, unit_desc, demograph, geo, val) %>%
+  right_join(euro_maps, by = c("geo" = "region"))
+
+##right, lined up now
+
+df_j %>%
+  filter(unit_desc == "Percentage of individuals") %>%
+ggplot(aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = val), colour = "grey90")+
+  ##geom_text(aes(label = geo), data = region.lab.data,  size = 3, hjust = 0.5)+
+  scale_fill_viridis_c(na.value = "grey80")+
+  theme_void()+
+##  theme(legend.position = "none") +
+  coord_cartesian(x = c(-22, 38), y = c(36, 70))
+
+
+
+
+
+
+##graph 4: Heatmap================================================================
+
+
+dat_purc_heat <-
+dat_purc %>%
+  filter(time == 2019,
+         !str_detect(geo, "Euro|Canada"),
+         ind_type == "All Individuals",
+         unit == "Percentage of individuals",
+         str_detect(indic_is, "Online purchases: "),
+         !str_detect(indic_is, "sellers")) %>%
+         mutate(indic_is = str_remove(indic_is, ".*: ")) %>%
+  filter(!str_detect(indic_is, "other travel|others|or computer software|magazines/e-learn|software, del|music, delive|papers/e-l|software, delivered"),
+         indic_is != "holiday accommodation"
+         ) %>%
+mutate(indic_is = firstup(indic_is))
+
+##cluster the thing using ward.D2
+#df_purc_heat_df <-
+#dat_purc_heat %>%
+#select(indic_is, code, values) %>%
+#pivot_wider(names_from = code, values_from = values) %>%
+#as.data.frame()
+
+#rownames(df_purc_heat_df) <- df_purc_heat_df$indic_is
+#df_purc_heat_df$indic_is <- NULL
+
+#df_clust <- cluster_matrix(as.matrix(df_purc_heat_df), method = "ward.D")
+
+##make tidy for ggplot
+#df_c_tidy <-
+#df_clust %>%
+#as.data.frame()
+
+#df_c_tidy$indic_is <- row.names(df_c_tidy)
+
+#heat_test <-
+#df_c_tidy %>%
+#as_tibble() %>%
+#mutate(indic_is = fct_inorder(indic_is)) %>%
+#pivot_longer(cols = 1:28) %>%
+#mutate(name = fct_inorder(name))
+
+
+##more processing
+
+##try fct_reorder
+heat_test <-
+dat_purc_heat %>%
+  mutate(code = as_factor(code)) %>%
+  mutate(code = fct_reorder(code, values, sum)) %>%
+  mutate(indic_is = fct_reorder(indic_is, values, sum))
+
+
+heat_test %>%
+ggplot(aes(y = indic_is, x = code, size = values, colour = values)) +
+  geom_point(shape = 15) +
+  geom_text(aes(label = round(values, 2)), colour = "grey80") +
+  theme_classic() +
+  labs(title = "Which countries order different types of goods?",
+       subtitle = "Text is % of individuals per EU country",
+       caption = "Axes are ordered by total goods ordered",
+       x = "Country code",
+       y = "")
+
+##heat_test %>%
+##ggplot(aes(y = indic_is, x = name, size = value, colour = values)) +
+##geom_point(shape = 15)
+
+unique(heat_test$name)
+
+##df_c_tidier <-
+ ## df_c_tidy %>%
+  ##filter(!str_detect(indic_is, "other travel|others|or computer software|magazines/e-learn|software, del|music, delive|papers/e-l|software, delivered"),
+   ##      indic_is %notin% c(" holiday accomodation"))
+
+##dat_purc_heat %>%
+##  ggplot(aes(x = geo, y = indic_is, size = values, colour = values)) +
+##  geom_point() +
+##  theme_classic()
+
+
+##  Graph 5:buying strategies======================================================================
 dat_strategies <-
 dat %>%
   filter(str_detect(unit, "who ordered goods"),
@@ -84,10 +350,17 @@ dat_strategies %>%
                position = position_dodge(0.9),
                geom = "crossbar") +
   theme_classic() +
-  scale_fill_manual(values = nord_aurora[c(1,3,5)])
+  scale_fill_manual(values = nord_aurora[c(1,3,5)]) +
+  labs(x = "",
+       y = "% of individuals",
+       title = "Comparing online buying strategies (2019)",
+       subtitle = "Dots represent indivdual european countries, bar represents the average",
+       fill = "How often do\nthey use these\nmethods?")
 
 
-##try a histogram of advertisements
+
+
+#Graph 6: ``#try a histogram of advertisements====================================================
 
 dat_ads <-
 dat %>%
@@ -139,20 +412,13 @@ ggplot(dat_ads_hist, aes(x = values, y = ind_type, fill = ind_type)) +
   theme_classic() +
   theme(legend.position = "none") +
   scale_fill_manual(values = nf7) +
-  labs(x = "Percentage of individuals with purchases in the past year",
+  labs(title = "Is buying online different between age groups?",
+       subtitle = "Bars made up of European countries, black dot is the median",
+         x = "Percentage of individuals with purchases in the past year",
        y = "Age group")
 
 
 ## Scatter plots?================================================================
-
-dat_purc <- get_eurostat(id_purc,
-                         time_format = "num",
-                         type = "label")
-
-
-dat_prob <- get_eurostat(id_problems,
-                       time_format = "num",
-                       type = "label")
 
 dat_purc_time <-
 dat_purc %>%
@@ -160,16 +426,24 @@ dat_purc %>%
          ind_type == "All Individuals",
          str_detect(indic_is, ": from sellers|from national"),
          str_detect(geo, "28 countries")) %>%
-filter(!str_detect(indic_is, "from sellers abroad"))
+filter(!str_detect(indic_is, "from sellers abroad")) %>%
+mutate(indic_is = str_remove(indic_is, "Online purchases: "))
 
 unique(dat_prob$ind_type)
 
-#a plot of purchasing locations over time
+#a plot of purchasing locations over time MAYBE USE LATER
 dat_purc_time %>%
   ggplot(aes(x = time, y = values, colour = indic_is, shape = indic_is)) +
   geom_path() +
   geom_point(size = 5) +
-  theme_classic()
+  theme_classic() +
+  scale_y_continuous(breaks = 2008:2019) +
+  labs(title = "The growth of online purchases over time",
+       subtitle = "Lines represent data from the EU 27/28",
+       x = "Year", y = "% of individuals",
+       colour = "Location of sellers",
+       shape = "Location of sellers"
+       )
 
 ##source and problems scatter
 dat_prob_2019 <-
@@ -193,6 +467,8 @@ dat_purc_2019 %>%
   left_join(dat_prob_2019, by = c("geo" = "geo")) %>%
   ggplot(aes(x = values.x, y = values.y, shape = indic_is.x, colour = indic_is.x)) +
   geom_point() +
+  geom_smooth(method = "lm")
+  theme_classic() +
   labs(x = "Online purchases", y = "Problems")
 
 # try a different one. Try a bubble one.
@@ -200,35 +476,10 @@ unique(dat_purc$ind_type)
 glimpse(dat_purc_2019)
 
 
-## line plot=============================================
-
-dat_purc
-unique(dat_purc$ind_type)
-unique(dat_purc$indic_is)
-
-dat_purc_lines <-
-dat_purc %>%
-filter(ind_type == "All Individuals",
-       str_detect(indic_is, "Frequency of online"),
-       str_detect(geo, "Euro area"),
-       unit == "Percentage of individuals",
-       !str_detect(indic_is, "6 times or more")) %>%
-mutate(indic_is = str_remove(indic_is, "Frequency of online purchases in the last 3 months: ")) %>%
-mutate(indic_is = str_replace(indic_is, "more", "More"))
-
-
-ggplot(dat_purc_lines,
-       aes(x = time,
-           y = values,
-           colour = indic_is,
-           shape = indic_is)) +
-  geom_path(alpha = 0.7) +
-geom_point(size = 3) +
-theme_classic()
 
 
 
-##try a correlation matrix
+##try a correlation matrix for problems
 
 dat_allprobs <-
   dat_prob %>%
@@ -288,6 +539,7 @@ dat_purc %>%
          time == 2019) %>%
 filter(!str_detect(indic_is, "from sellers abroad"))
 unique(dat_prob$ind_type)
+
 dat_allprobs <-
   dat_prob %>%
     filter(unit == "Percentage of individuals",
@@ -311,73 +563,6 @@ mutate(sellers = case_when(str_detect(sellers, "national") ~ "National",
 dat_allprobs
 ggplot(dat_allprobs, aes(x = sellers, y = prob_val, fill = problems)) +
   geom_col()
-
-##graph 4: Heatmap================================================================
-firstup <- function(x) {
-  substr(x, 1, 1) <- toupper(substr(x, 1, 1))
-  x
-}
-
-dat_purc_heat <-
-dat_purc %>%
-  filter(time == 2019,
-         !str_detect(geo, "Euro"),
-         ind_type == "All Individuals",
-         unit == "Percentage of individuals",
-         str_detect(indic_is, "Online purchases: "),
-         !str_detect(indic_is, "sellers")) %>%
-         mutate(indic_is = str_remove(indic_is, ".*: ")) %>%
-  filter(!str_detect(indic_is, "other travel|others|or computer software|magazines/e-learn|software, del|music, delive|papers/e-l|software, delivered"),
-         indic_is != "holiday accommodation"
-         ) %>%
-mutate(indic_is = firstup(indic_is))
-
-##cluster the thing using ward.D2
-df_purc_heat <-
-dat_purc_heat %>%
-select(indic_is, geo, values) %>%
-pivot_wider(names_from = geo, values_from = values) %>%
-as.data.frame()
-
-rownames(df_purc_heat) <- df_purc_heat$indic_is
-df_purc_heat$indic_is <- NULL
-
-df_clust <- cluster_matrix(as.matrix(df_purc_heat), method = "average")
-
-##make tidy for ggplot
-df_c_tidy <-
-df_clust %>%
-as.data.frame()
-
-df_c_tidy$indic_is <- row.names(df_c_tidy)
-
-heat_test <-
-df_c_tidy %>%
-as_tibble() %>%
-mutate(indic_is = fct_inorder(indic_is)) %>%
-pivot_longer(cols = 1:37) %>%
-mutate(name = fct_inorder(name))
-
-`%notin%` <- Negate(`%in%`)
-
-##more processing
-
-
-heat_test %>%
-ggplot(aes(y = indic_is, x = name, size = value)) +
-geom_point()
-
-
-
-##df_c_tidier <-
- ## df_c_tidy %>%
-  ##filter(!str_detect(indic_is, "other travel|others|or computer software|magazines/e-learn|software, del|music, delive|papers/e-l|software, delivered"),
-   ##      indic_is %notin% c(" holiday accomodation"))
-
-##dat_purc_heat %>%
-##  ggplot(aes(x = geo, y = indic_is, size = values, colour = values)) +
-##  geom_point() +
-##  theme_classic()
 
 ##Area do source data=============================================================
 
