@@ -8,6 +8,7 @@ library(ggridges)
 library(ggrepel)
 library(textshape)
 library(here)
+library(ggpubr)
 
 ##function to capitalise first letter
 firstup <- function(x) {
@@ -25,6 +26,36 @@ nord_aurora <- c("#BF616A","#D08770","#EBCB8B","#A3BE8C","#B48EAD")
 nf7 <- colorRampPalette(nord_frost)(7)
 nf <- colorRampPalette(nord_frost)(10)
 
+## also SASHAs cols
+sasha_cols <- function(n_cols) {
+  c(
+    '#e6194b',
+    '#3cb44b',
+    '#4363d8',
+    '#f58231',
+    '#911eb4',
+    '#46f0f0',
+    '#f032e6',
+    '#bcf60c',
+    '#fabebe',
+    '#008080',
+    '#e6beff',
+    '#9a6324',
+    '#fffac8',
+    '#800000',
+    '#aaffc3',
+    '#808000',
+    '#ffd8b1',
+    '#000075',
+    '#808080',
+    '#ffffff',
+    '#000000'
+  )[1:n_cols]
+}
+
+
+
+
 # Get Eurostat data listing
 toc <- get_eurostat_toc()
 
@@ -34,10 +65,32 @@ kable(head(toc))
 id <- search_eurostat("online")$code[2]
 print(id)
 
-dat <- get_eurostat(id,
-                    time_format = "num",
-                    type = "label"
-                    )
+##create table of what we want
+
+chosen_sets <-
+bind_rows(
+  search_eurostat("Internet purchases")[1,],
+  search_eurostat("online")[1,],
+  search_eurostat("buying")[1,]
+)
+
+colnames(chosen_sets) <- str_to_sentence(colnames(chosen_sets))
+chosen_sets <- chosen_sets %>% select(-Values)
+
+cs_plot <- ggpubr::ggtexttable(x = chosen_sets)
+
+
+ggsave(filename = "cs_plot.png",
+       plot = cs_plot,
+       height = 3,
+       width = 33,
+       units = "cm",
+       dpi = 500)
+
+#dat <- get_eurostat(id,
+#                    time_format = "num",
+#                    type = "label"
+#                    )
 
 ##search ids for some things, taken from the bottom
 id_problems <- search_eurostat("buying")$code[1]
@@ -46,14 +99,14 @@ id_proc <- search_eurostat("online")$code[1]
 id_purc <- search_eurostat("Internet purchases")$code[1]
 
 
-dat_purc <- get_eurostat(id_purc,
-                         time_format = "num",
-                         type = "label")
+#dat_purc <- get_eurostat(id_purc,
+#                         time_format = "num",
+#                         type = "label")
+#
 
-
-dat_prob <- get_eurostat(id_problems,
-                       time_format = "num",
-                       type = "label")
+#dat_prob <- get_eurostat(id_problems,
+#                       time_format = "num",
+#                       type = "label")
 
 ##write these just to be safe
 #write_csv(dat,paste0(getwd(), "/", "dat.csv")
@@ -102,6 +155,20 @@ dat_prob <- dat_prob %>%
 dat_purc <- dat_purc %>%
   left_join(dat_dict, by = c("geo" = "description"))
 
+##exploration
+summary(dat_in)
+#funModeling::status(dat_in)
+#funModeling::status(dat_purc_in)
+#funModeling::status(dat_prob_in)
+
+funModeling::status(
+    bind_rows(
+        dat_in,
+        dat_prob_in,
+        dat_purc_in
+    )
+)
+
 ## Graph 1: line plot=============================================
 
 
@@ -115,21 +182,28 @@ filter(ind_type == "All Individuals",
 mutate(indic_is = str_remove(indic_is, "Frequency of online purchases in the last 3 months: ")) %>%
 mutate(indic_is = str_replace(indic_is, "more", "More"))
 
-
+plot_1 <-
 ggplot(dat_purc_lines,
        aes(x = time,
            y = values,
            colour = indic_is,
            shape = indic_is)) +
-  geom_path(alpha = 0.7) +
+  geom_path(alpha = 0.5) +
 geom_point(size = 3) +
   theme_classic() +
   labs(title = "Growth of online purchasing over time",
        subtitle = "Lines represent data from the EU27/28",
-       x = "Year", y = "Percentage of individuals",
+       x = "Year", y = "% of individuals",
        colour = "Online purchasing\nin the last 3 months",
-       shape = "Online purchasing\nin the last 3 months")
+       shape = "Online purchasing\nin the last 3 months") +
+scale_colour_manual(values = sasha_cols(4))
 
+ggsave(filename = "plot1.png",
+       plot = plot_1,
+       height = 12,
+       width = 16,
+       units = "cm",
+       dpi = 500)
 
 ## Graph 2: Chloropleth=======================================================
 
@@ -161,7 +235,9 @@ demo_filt <- c("All Individuals"
                )
 
 df_filt <- df_r %>%
-  filter(demograph %in% demo_filt)
+  filter(demograph %in% demo_filt) %>%
+  left_join(dat_dict, by = c("geo" = "description"))
+
 
 world_map <- map_data("world")
 
@@ -182,7 +258,8 @@ the_cs <- c("Albania", "Andorra", "Armenia", "Austria", "Azerbaijan",
             "Poland", "Portugal",
             "Romania", "Russia",
             "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Switzerland", "Sweden",
-            "Turkey", "Ukraine", "UK",
+            #"Turkey",
+            "Ukraine", "UK",
             "Vatican")
 
 ## Retrievethe map data
@@ -190,11 +267,13 @@ euro_maps <- map_data("world", region = the_cs)
 
 #sort(unique(euro_maps$region))
 
+
+
 # Compute the centroid as the mean longitude and lattitude
 # Used as label coordinate for country's names
 region.lab.data <- euro_maps %>%
   group_by(region) %>%
-  summarise(long = mean(long), lat = mean(lat))
+  summarise(long = mean(long), lat = mean(lat))# %>%
 
 df_for_j <-
   df_filt %>%
@@ -205,27 +284,49 @@ df_for_j <-
                          geo == "Czechia" ~ "Czech Republic",
                          TRUE ~ geo))
 
-#now go into chloropleth
+df_map_code <-
+  df_for_j %>%
+  select(geo, geo.time) %>%
+  unique()
+
+region.lab.data <-
+  region.lab.data %>%
+  left_join(df_map_code, by = c("region" = "geo"))
+
+##now go into chloropleth
 df_j <-
   df_for_j %>%
   filter(demograph == "All Individuals", measure == "Last online purchase: in the 12 months") %>%
-  select(measure, unit_desc, demograph, geo, val) %>%
+  select(measure, unit_desc, demograph, geo, val, code) %>%
   right_join(euro_maps, by = c("geo" = "region"))
+
+df_j$val[which(is.na(df_j$code))] <- NA
 
 ##right, lined up now
 
+plot_2 <-
 df_j %>%
   filter(unit_desc == "Percentage of individuals") %>%
-ggplot(aes(x = long, y = lat, group = group)) +
-  geom_polygon(aes(fill = val), colour = "grey90")+
-  ##geom_text(aes(label = geo), data = region.lab.data,  size = 3, hjust = 0.5)+
-  scale_fill_viridis_c(na.value = "grey80")+
+ggplot() +
+  geom_polygon(aes(fill = val, x = long, y = lat, group = group), colour = "grey90") +
+  geom_text(aes(label = geo.time, x = long, y = lat), data = region.lab.data,  size = 3, hjust = 0.5) +
+  #scale_fill_viridis_c(na.value = "grey80")+
   theme_void()+
 ##  theme(legend.position = "none") +
-  coord_cartesian(x = c(-22, 38), y = c(36, 70))
+  coord_cartesian(x = c(-10, 30), y = c(36, 70)) +
+  scale_fill_steps(na.value = "grey75", breaks = c(0,20,40,60,80,100))+
+  labs(title = "Which countries buy online the most?",
+       subtitle = "% of individuals who have purchased online in the last year (2019)",
+       fill = "% of\nindividuals")
+#scale_fill_viridis_b(na.value = "grey75", scale_color_steps())
 
 
-
+ggsave(filename = "plot2.png",
+       plot = plot_2,
+       height = 12,
+       width = 16,
+       units = "cm",
+       dpi = 500)
 
 
 

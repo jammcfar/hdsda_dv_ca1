@@ -1,8 +1,79 @@
 #+TITLE: Paper
 
-* Dataset
+* Background
 
-The datasets used for this project were based on the theme of online purchasing in the Euopean Union. One would assume that this has risen dramatically over the past couple of decades and will have a number of important consequences for society.
+The datasets used for this project were based on the theme of online purchasing in the Euopean Union. This has risen dramatically over the past couple of decades and will have a number of important consequences for society (https://ec.europa.eu/eurostat/statistics-explained/index.php/E-commerce_statistics_for_individuals
+https://ec.europa.eu/eurostat/web/products-eurostat-news/-/DDN-20200420-2
+http://www.anec.eu/attachments/ANEC-RT-2015-SERV-005.pdf).
+
 General questions include which countries buy online the most, and is this concentrated into wealthier countries? What influences consumer behaviour when buying online and what are their strategies for deciding what to buy?
 
 A number of questions are raised such as do national or foreign sellers benefit more from this shift? Are there problems related to buying online?
+
+** Datasets
+Three dataset were extracted from the Eurostat database using the R Eurostat package (http://ropengov.github.io/eurostat/). This package provides a means to easily query the Eurostat database.
+These datasets were appended with a dictionary, also downloaded with the Eurostat package to replace the database codes with human-readable labels.
+The dataset had X rows and 6 columns, with a number of NA and 0 values.
+There were X unique values for ...
+Some values were not used for the analysis ...
+Comment on data reliability.
+
+** Data visualisation
+Intro section
+*** The rise in purchasing over time
+**** Information to communicate
+This graph shows the steady increase over time of online purchasing across the EU as a whole, going as far back as the data would allow. Talk
+**** Motivation and justification
+It was important to communicate how this is increasing over time, so a line graph was selected. It clearly shows the relationship over time that a variable has over time.
+**** Justification of techniques, layout, style and colour
+A simple, distraction free layout was used here as a fine view of the values of the x and y axis are not very important to communicate the message.
+The lines were coloured to distinguish the groups we wish to compare.
+Lines were augmented by shaped points.
+The colours chosen were colour blind safe.
+This was augmented by using shapes instead of simple points.
+
+**** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
+The visual shows both the general increasing trend of online purchasing. However, the comparison between the different purchasing frequencies shows that less than five times is much more common. There is seemingly a more reliable increase in purchasing between 3-5 times, than the others which tend to plateau. It would seem from this comparison, that this purchasing frequency might become the most common type if trends continue.
+
+*** Viz 2
+**** Information to communicate
+This visual map of Europe, shows the frequency of online purchasing for individual countries the the EU28.
+**** Motivation and justification
+Maps are easy to visually explore.
+**** Justification of techniques, layout, style and colour
+**** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
+
+*** Viz 3
+**** Information to communicate
+This graph shows the steady increase over time of online purchasing across the EU as a whole.
+**** Motivation and justification
+**** Justification of techniques, layout, style and colour
+**** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
+
+*** Viz 4
+**** Information to communicate
+This graph shows the steady increase over time of online purchasing across the EU as a whole.
+**** Motivation and justification
+**** Justification of techniques, layout, style and colour
+**** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
+
+*** Viz 5
+**** Information to communicate
+This graph shows the steady increase over time of online purchasing across the EU as a whole.
+**** Motivation and justification
+**** Justification of techniques, layout, style and colour
+**** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
+
+*** Viz 6
+**** Information to communicate
+This graph shows the steady increase over time of online purchasing across the EU as a whole.
+**** Motivation and justification
+**** Justification of techniques, layout, style and colour
+**** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
+
+*** Viz 7
+**** Information to communicate
+This graph shows the steady increase over time of online purchasing across the EU as a whole.
+**** Motivation and justification
+**** Justification of techniques, layout, style and colour
+**** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
