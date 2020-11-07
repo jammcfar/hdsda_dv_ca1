@@ -12,6 +12,11 @@ A number of questions are raised such as do national or foreign sellers benefit 
 
 ** Datasets
 Three dataset were extracted from the Eurostat database using the R Eurostat package (http://ropengov.github.io/eurostat/). This package provides a means to easily query the Eurostat database.
+
+#+ATTR_ORG: :width 700
+[[file:./cs_plot.png]]
+
+
 These datasets were appended with a dictionary, also downloaded with the Eurostat package to replace the database codes with human-readable labels.
 The dataset had X rows and 6 columns, with a number of NA and 0 values.
 There were X unique values for ...
@@ -21,12 +26,17 @@ Comment on data reliability.
 ** Data visualisation
 Intro section
 *** The rise in purchasing over time
+
+#+ATTR_ORG: :width 500
+[[file:./plot1.png]]
+
 **** Information to communicate
 This graph shows the steady increase over time of online purchasing across the EU as a whole, going as far back as the data would allow. Talk
 **** Motivation and justification
 It was important to communicate how this is increasing over time, so a line graph was selected. It clearly shows the relationship over time that a variable has over time.
 **** Justification of techniques, layout, style and colour
 A simple, distraction free layout was used here as a fine view of the values of the x and y axis are not very important to communicate the message.
+The lines were given different linetypes and shapes as this helps distinguish them (Ward, Lecture 3).
 The lines were coloured to distinguish the groups we wish to compare.
 Lines were augmented by shaped points.
 The colours chosen were colour blind safe.
@@ -36,40 +46,93 @@ This was augmented by using shapes instead of simple points.
 The visual shows both the general increasing trend of online purchasing. However, the comparison between the different purchasing frequencies shows that less than five times is much more common. There is seemingly a more reliable increase in purchasing between 3-5 times, than the others which tend to plateau. It would seem from this comparison, that this purchasing frequency might become the most common type if trends continue.
 
 *** Viz 2
+
+#+ATTR_ORG: :width 500
+[[file:./plot2.png]]
+
 **** Information to communicate
 This visual map of Europe, shows the frequency of online purchasing for individual countries the the EU28.
 **** Motivation and justification
-Maps are easy to visually explore.
+Important to show, on a high level, how the different EU countries compare in terms of purchasing online.
 **** Justification of techniques, layout, style and colour
+Maps are easy to visually explore.
+Most people already can easily home in on a country of interest.
+The colour scale has been binned to allow for easier comparison of similar and contrasting regions.
 **** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
+The visualisation shows that some countries have much different online purchasing rates than others.
+This appears to be higher in western and central countries.
 
 *** Viz 3
+#+ATTR_ORG: :width 500
+[[file:./plot3.png]]
+(Caption average salary, relating a bar with colour?)
+
 **** Information to communicate
-This graph shows the steady increase over time of online purchasing across the EU as a whole.
+With this visual, we are trying to highlight the most common brackets of online spending in the EU area.
 **** Motivation and justification
+This is important to show how much of the
 **** Justification of techniques, layout, style and colour
+A histogram...
+A breakdown based on individual countries would be more informative. However, the discrete nature of the spending brackets doesn't not would not easily allow for accurate ranking of states.
 **** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
+2% of the data is unaccounted for.
 
 *** Viz 4
-**** Information to communicate
-This graph shows the steady increase over time of online purchasing across the EU as a whole.
-**** Motivation and justification
-**** Justification of techniques, layout, style and colour
-**** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
 
+#+ATTR_ORG: :width 700
+[[file:./plot4.png]]
+
+**** Information to communicate
+Here, we want to show what consumers are buying within the EU, and how the different states compare in terms of their online purchasing habits. Something which is easy to make comparisons, as well as provide detailed data if desired.
+**** Motivation and justification
+A heatmap type of plot was judged to be the best way to represent this type of data.
+Visualisations such as bar charts would be too busy and it would be very difficult to distinguish between variables given the large numbers present.
+A simple table would have been too difficult to visually navigate.
+**** Justification of techniques, layout, style and colour
+The variables along the x and y axis were sorted by the total sum of all their values to order the matrix. This provides a visualisation where comparisons between states or purchase types easy to make, and leads the eye across the visual.
+The tiles used both colour and size to differentiate...
+One downside to this method of ranking is that it is not immediately obvious where a purchase type or country is along the axis, forcing the viewer to search for them if needed.
+**** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
+The matrix shows the
 *** Viz 5
+
+#+ATTR_ORG: :width 500
+[[file:./plot5.png]]
+(perhaps "never" is superfluous)
+
 **** Information to communicate
 This graph shows the steady increase over time of online purchasing across the EU as a whole.
 **** Motivation and justification
+Relevant to see how consumers behave at a deeper level. With the increasing amount of commerce being done online is critical for businesses to understand this.
 **** Justification of techniques, layout, style and colour
+The 2x2 categorical design of the data available necessitated a ... (see slides for chart category).
+A bar chart with the average would have been sufficient. However, displaying distributions of the individual countries allows for highlighting of outliers.
+Since the main goal here was to compare
 **** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
+It shows that consumer general tend to be proactive using these techniques.
+Comparing sites manually on average is the most popular method.
+There are some obvious exceptions to the rule.
+
 
 *** Viz 6
+
+#+ATTR_ORG: :width 500
+[[file:./plot6.png]]
+(could pair this one up with another males vs females plot)
 **** Information to communicate
-This graph shows the steady increase over time of online purchasing across the EU as a whole.
+One demographic that might have a big influence on online purchasing is age. It might be assumed that younger people spend significantly more money than older generations.
 **** Motivation and justification
+This can help with understanding how diverse online spenders are.
+Help with understanding how democratised technology has become and have older generations become as empowered as younger generations.
 **** Justification of techniques, layout, style and colour
+Distributions can provide insights that summary statistics cant. They can suggest if the different EU states are homogenous or diverse with respect to certain variables
+It might have been necessary to highlight outliers in this data.
+Colour is used here, not primarily to distinguish groups, but help lead the eye up the chart with the increasing age groups.
 **** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
+The graph shows that younger generations tend to be more likely to have made purchases.
+16-24 year olds maybe don't spend as much as 25 - 34 year olds because they dont have as much money.
+75+ age group is heavily concentrated towards the start of the chart. However, there is a split distribution here.
+Suprisingly, Romania and Portugal emerge as outliers.
 
 *** Viz 7
 **** Information to communicate

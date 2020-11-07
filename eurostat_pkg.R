@@ -99,7 +99,12 @@ id_proc <- search_eurostat("online")$code[1]
 id_purc <- search_eurostat("Internet purchases")$code[1]
 
 
-#dat_purc <- get_eurostat(id_purc,
+dat_orders <- get_eurostat(id_orders,
+                           time_format = "num")
+
+dat_orders <- label_eurostat(dat_orders, fix_duplicated = T)
+unique(dat_orders$indic_is)
+                                        #dat_purc <- get_eurostat(id_purc,
 #                         time_format = "num",
 #                         type = "label")
 #
@@ -329,6 +334,66 @@ ggsave(filename = "plot2.png",
        dpi = 500)
 
 
+##graph 3: Stacked bar============================================================
+
+dat_stack <-
+  dat_purc %>%
+    filter(ind_type == "All Individuals",
+        str_detect(indic_is, "3 months for"),
+        !str_detect(geo, "Euro"),
+        str_detect(unit, "online in the last 3 months")) %>%
+ ## mutate(geo = fct_reorder(geo, values, sum)) %>%
+ mutate(indic_is = case_when(str_detect(indic_is , "50 euro") ~ "< 50",
+                             str_detect(indic_is, "50 and 99") ~ "50 - 99",
+                             str_detect(indic_is, "100 and 499") ~ "100 - 499",
+                             str_detect(indic_is, "500 and 999") ~ "500 - 999",
+                             str_detect(indic_is, "1000 euro or more") ~ "1000 or more")) %>%
+ filter(!is.na(indic_is)) %>%
+ mutate(indic_is = factor(indic_is, levels = c("< 50", "50 - 99", "100 - 499", "500 - 999", "1000 or more"))) %>%
+ mutate(geo = fct_reorder(geo, values * (0 + 100000 * (indic_is == "1000 or more")), max))
+
+ggplot(dat_stack, aes(x = geo, y = values, fill = indic_is)) +
+  geom_col()
+
+##forget that, do a pretty bar
+
+dat_bar <-
+  dat_purc %>%
+    filter(ind_type == "All Individuals",
+        str_detect(indic_is, "3 months for"),
+        str_detect(geo, "28 count"),
+        str_detect(unit, "online in the last 3 months"),
+        time == 2019) %>%
+ mutate(indic_is = case_when(str_detect(indic_is , "50 euro") ~ "< 50",
+                             str_detect(indic_is, "50 and 99") ~ "50 - 99",
+                             str_detect(indic_is, "100 and 499") ~ "100 - 499",
+                             str_detect(indic_is, "500 and 999") ~ "500 - 999",
+                             str_detect(indic_is, "1000 euro or more") ~ "1000 or more")) %>%
+ filter(!is.na(indic_is)) %>%
+ mutate(indic_is = factor(indic_is, levels = c("< 50", "50 - 99", "100 - 499", "500 - 999", "1000 or more")))
+
+plot3 <-
+ggplot(dat_bar, aes(y = indic_is, x = values)) +
+  geom_col() +
+  geom_text(aes(label = paste0(values, "%"),
+                x = values,
+                y = indic_is,
+                hjust = -0.2)) +
+  coord_cartesian(xlim = c(0, 60)) +
+  labs(title = "Money spent online",
+       subtitle = "Among individuals who have purchased goods online in the last 3 months",
+       x = "", y = "Euros") +
+  theme_classic() +
+  theme(axis.line = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks = element_blank())
+
+ggsave(filename = "plot3.png",
+       plot = plot3,
+       height = 12,
+       width = 16,
+       units = "cm",
+       dpi = 500)
 
 ##graph 4: Heatmap================================================================
 
@@ -383,7 +448,7 @@ dat_purc_heat %>%
   mutate(code = fct_reorder(code, values, sum)) %>%
   mutate(indic_is = fct_reorder(indic_is, values, sum))
 
-
+plot_4 <-
 heat_test %>%
 ggplot(aes(y = indic_is, x = code, size = values, colour = values)) +
   geom_point(shape = 15) +
@@ -394,6 +459,14 @@ ggplot(aes(y = indic_is, x = code, size = values, colour = values)) +
        caption = "Axes are ordered by total goods ordered",
        x = "Country code",
        y = "")
+
+
+ggsave(filename = "plot4.png",
+       plot = plot_4,
+       height = 12,
+       width = 16,
+       units = "cm",
+       dpi = 500)
 
 ##heat_test %>%
 ##ggplot(aes(y = indic_is, x = name, size = value, colour = values)) +
@@ -438,6 +511,7 @@ dat_strategies %>%
   geom_point()
 
 ##graph
+plot5 <-
 dat_strategies %>%
   filter(buy_type != "Advertisements") %>%
   ggplot(aes(x = buy_type, y = values, fill = usage)) +
@@ -459,6 +533,12 @@ dat_strategies %>%
        fill = "How often do\nthey use these\nmethods?")
 
 
+ggsave(filename = "plot5.png",
+       plot = plot5,
+       height = 12,
+       width = 16,
+       units = "cm",
+       dpi = 500)
 
 
 #Graph 6: ``#try a histogram of advertisements====================================================
@@ -501,7 +581,7 @@ dat_ads_means <-
   group_by(ind_type) %>%
   summarise(mean_val = median(values, na.rm = T))
 
-
+plot6 <-
 ggplot(dat_ads_hist, aes(x = values, y = ind_type, fill = ind_type)) +
   geom_density_ridges(stat = "binline", alpha = 0.8, scale = 1) +
   geom_text_repel(data = dat_ads_top3,
@@ -518,6 +598,13 @@ ggplot(dat_ads_hist, aes(x = values, y = ind_type, fill = ind_type)) +
          x = "Percentage of individuals with purchases in the past year",
        y = "Age group")
 
+
+ggsave(filename = "plot6.png",
+       plot = plot6,
+       height = 12,
+       width = 16,
+       units = "cm",
+       dpi = 500)
 
 ## Scatter plots?================================================================
 
