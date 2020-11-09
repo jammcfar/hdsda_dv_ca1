@@ -5,13 +5,13 @@ bibliography:./manuscript.bib
 
 * Background
 
-The datasets used for this project were based on the theme of online purchasing in the European Union. This has risen dramatically over the past couple of decades and will have a number of important consequences for society (https://ec.europa.eu/eurostat/statistics-explained/index.php/E-commerce_statistics_for_individuals
+This project is an exploration of online purchasing within the European Union (EU28). This has risen dramatically over the past couple of decades and has already had an important number of consequences for society such as logistics, the environment, (https://ec.europa.eu/eurostat/statistics-explained/index.php/E-commerce_statistics_for_individuals
 https://ec.europa.eu/eurostat/web/products-eurostat-news/-/DDN-20200420-2
 http://www.anec.eu/attachments/ANEC-RT-2015-SERV-005.pdf).
+https://www.sciencedirect.com/science/article/abs/pii/S0022435901000653
+http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.581.6360&rep=rep1&type=pdf
+The questions we wish to answer are how are individuals in different EU states adopting e-commerce, what are some key demographics and behaviours that affect this, and are individuals experiencing problems with engaging in e-commerce. In doing so, we wish to build a picture for the viewer of what makes a typical online purchaser.
 
-General questions include which countries buy online the most, and is this concentrated into wealthier countries? What influences consumer behaviour when buying online and what are their strategies for deciding what to buy?
-
-A number of questions are raised such as do national or foreign sellers benefit more from this shift? Are there problems related to buying online?cite:CitekeyBook
 
 cite:CitekeyInbook
 
@@ -32,13 +32,13 @@ Comment on data reliability.
 
 ** Common design choices
 There were some design choices that were shared among the visualisations. The fonts used for this project was the Helvetica and Helvetica Neue families. Since the subject matter was technological in nature, a more slightly more futuristic styling was desired, the use of sans-serif fonts was used exclusively. To make the tone was more informative rather the fun, display fonts were also omitted.
-The base colour chosen was "#1E448A", the blue used in the EU commissions flag. Gradient colour scales were extended from this, generated using an online tool https://hihayk.github.io/scale/. This however was abandoned for categorical schemes, as no complementary colour combination could be found that was sufficiently colour blind safe. Instead, categorical colour-schemes were generated using an online tool https://davidmathlogic.com/colorblind/
+The base colour chosen was "#1E448A", the blue used in the EU commissions flag. Gradient colour scales were extended from this, generated using an online tool https://hihayk.github.io/scale/. For some comparisons, tetradic complementary colours were used, which were judged as colour blind safe using an online tool. https://davidmathlogic.com/colorblind/
 Categorical colour schemes were selected to be colour-blind safe and
 
 ** Data visualisation
 Intro section
 *** The rise in purchasing over time
-Here, we wish to communicate how the rates of purchasing online have changed over time. With the data available, we can show this for different purchasing rates.
+This first question we wish to ask is how common is online purchasing, with the intention of qualifying how the importance of the subject matter. Here, we wish to communicate how the rates of purchasing online have changed over time. With the data available, we can show this for different purchasing rates.
 Showing the composition of online purchasing over time and the different purchasing frequencies out there, will inform how significant this subject matter is. It can give an idea of how important purchasing online is becoming.
 
 
@@ -57,9 +57,9 @@ The visual shows both the general increasing trend of online purchasing. However
 [[file:./plot2.png]]
 
 
-This visual intends to demonstrate how online purchasing rates differ between states and broader EU regions. Using data for any purchases in the past year, gives us an idea of the availability of online purchasing to individuals, regardless of whether the make it a part of their lives.
+The second question we will ask is what is the nationality of the online purchaser. This visual intends to demonstrate how online purchasing rates differ between states and broader EU regions. Using data for any purchases in the past year, gives us an idea of the availability of online purchasing to individuals, regardless of whether the make it a part of their lives.
 
-It is important to show, on a high level, how the different EU countries compare in terms of making purchases online in the past year. Arguably, this could be an indirect economic indicator. Comparisons of both states and broader regions are possible here. However, downside of this is that finer detail is hidden (Ward p240).
+It is important to show, on a high level, how the different EU countries compare in terms of making purchases online in the past year. Arguably, this could be an indirect economic indicator http://repository.londonmet.ac.uk/88/. Comparisons of both states and broader regions are possible here. However, downside of this is that finer detail is hidden (Ward p240).
 
 Since the number of dimensions of geographical data are high, a chloropleth was chosen to visualise this.
 Most people already can easily home in on a country of interest.
@@ -69,88 +69,80 @@ The EU countries were directly labelled with their abbreviated forms as there wa
 The visualisation shows that some countries have much different online purchasing rates than others.
 This appears to be higher in western and central and Northern EU states, and a line could almost be drawn to seperate these from Southern and Eastern Europe.
 
-*** Viz 3
+*** Spending brackets within the EU28
 #+ATTR_ORG: :width 500
 [[file:./plot3.png]]
 (Caption average salary, relating a bar with colour? This is called editorial salience (see slides), drawing viewers attention to meaningful features).
 
 **** Information to communicate
-This visuals intends to comparing the rates of spending by individuals who are verifiable online shoppers.
+This visual intends to comparing the rates of spending by individuals who are verifiable online shoppers.
 **** Motivation and justification
-This is important to show how much of the
+A key aspect of who is doing the purchasing is how much they are spending. his aspect of online purchasing is important to discuss, as it will help inform how reliant and engaged consumers are on online purchasing.
 **** Justification of techniques, layout, style and colour
-A histogram...
 A breakdown based on individual countries would be more informative. However, the discrete nature of the spending brackets doesn't not would not easily allow for accurate ranking of states.
+Editorial salience was used here to annotate how two income quartiles relate to these categories. This forms an association with individual wealth.
 **** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
-2% of the data is unaccounted for.
+The visual shows that the 100 - 499 spending bracket is the most common. The annotations indicate a disproportionate amount of the highest and lowest brackets are occupied by the highest and lowest income quartiles. This is not surprising, but informs that this data falls largely in line with peoples wealth.
+2% of the data is unaccounted for, as an artifact of the source data.
 
 *** Types of goods and services being purchased
 
-#+ATTR_ORG: :width 700
+#+ATTR_ORG: :width 500
 [[file:./plot4_pre.png]]
-
-Change colours
-Fix y legend labels
-Remove legends
+SCALING IS FUCKED!
 
 
 **** Information to communicate
-Here, we want to show what consumers are buying within the EU, and how the different states compare in terms of their online purchasing habits. Something which is easy to make comparisons, as well as provide detailed data if desired.
+The visual aims to show what are the most popular categories of online purchases and, out of individuals who are active online shoppers, which countries are these sorts of purchases the most popular.
 **** Motivation and justification
-A heatmap type of plot was judged to be the best way to represent this type of data.
-Visualisations such as bar charts would be too busy and it would be very difficult to distinguish between variables given the large numbers present.
-A simple table would have been too difficult to visually navigate.
+It helps answer questions about "What is being bought and by whom?" and is relevent to this exploration of online buying. There are a very diverse number of things that one could spend money on (from clothes and movies to e-learning), and despite their overall ranking, purchasers in individual countries could lead in different categories of goods.
 **** Justification of techniques, layout, style and colour
+A bubble chart, with areas scaled by their percentage was used (kirk 148). Its use of area takes advantage of pre-attentive processing. Not there may be a slight error in the area scaling.
+Visualisations such as bar charts would be too busy and it would be very difficult to distinguish between variables given the large numbers present.
+Flags were used
+Because there is not much variation between the items, rankings and percentage annotations were employed.
+A simple table would have been too difficult to visually navigate, bb so flags were used. The downside here though is it relies on flag knowledge.
 The variables along the x and y axis were sorted by the total sum of all their values to order the matrix. This provides a visualisation where comparisons between states or purchase types easy to make, and leads the eye across the visual.
-The tiles used both colour and size to differentiate...
-One downside to this method of ranking is that it is not immediately obvious where a purchase type or country is along the axis, forcing the viewer to search for them if needed.
 **** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
 The matrix shows the
-*** Viz 5
+
+*** Consumer buying strategies
 
 #+ATTR_ORG: :width 500
 [[file:./plot5_pre.png]]
-(perhaps "never" is superfluous)
-change colours
-label outliers
-caption - "Very high spread of responses for always"
 
 **** Information to communicate
-This graph shows the steady increase over time of online purchasing across the EU as a whole.
+Here, we wish to explore how online purchasers behave and how they go about making purchases. This helps build up our picture of who they are by looking at their behaviour, and not be restricted to physical characteristics.
 **** Motivation and justification
 Relevant to see how consumers behave at a deeper level. With the increasing amount of commerce being done online is critical for businesses to understand this.
 **** Justification of techniques, layout, style and colour
-The 2x2 categorical design of the data available necessitated a ... (see slides for chart category).
+There are 3 components to this chart. The mean lines allow for a casual comparison between the three buying strategies.  The violin component allows us to see how reliable our inferences are, with respect to individual states. The individual points allow us to identify any outliers.
 A bar chart with the average would have been sufficient. However, displaying distributions of the individual countries allows for highlighting of outliers.
-Since the main goal here was to compare
+Since the main goal here was to compare groups and shape, gridlines were omitted (Kirk, 155). The ordering was important for frequency of strategy used, but not the type of strategy.
 **** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
-It shows that consumer general tend to be proactive using these techniques.
-Comparing sites manually on average is the most popular method.
-There are some obvious exceptions to the rule.
+It shows that most consumers generally tend to be proactive using these techniques, using these techniques at least sometimes. Looking at the means, comparing sites manually is the most popular method on average, suggesting that frugality is a driving factor here. However, while people who always use these methods are the most abundant, they are also the most spread out among states, meaning we cant easily apply that rule universally.
+There are also some obvious exceptions to the rule. Ireland tends to be a stark outlier here, with around 60% of shoppers not using these methods. The south eastern states seem to occupy the top spots here, suggesting the are much more careful shoppers.
 
 
 *** The demographics of online purchasing
 
 #+ATTR_ORG: :width 500
 [[file:./plot6.png]]
-(could pair this one up with another males vs females plot)
-(change colours)
 
 **** Information to communicate
 Here, we want to communicate the demographic differences for buying online. Arguably, the two most basic demographics used to explore populations are age and gender.
 **** Motivation and justification
-This can help with understanding how diverse online spenders are.
-It might be assumed that younger people spend significantly more money than older generations.
-Help with understanding how democratised technology has become. Technological pursuits were once the dominated by the younger male demographic. Using 2019 data, we shall see how this has changed.
+This can help with understanding how diverse online spenders are. It might be assumed that younger people buy significantly more money than older generations, though their online engagement with e-commerce is complex https://dl.acm.org/doi/abs/10.1145/1940761.1940779.
+Help with understanding how democratised technology has become as it has previously been shown that qualities such as age and gender do have and affect https://marketing.business.uconn.edu/wp-content/uploads/sites/724/2014/08/effect-of-consumer-beliefs-on-online.pdf
+https://www.researchgate.net/profile/Shelly_Rodgers/publication/4771111_Gender_and_E-Commerce_An_Exploratory_Study/links/54c9830e0cf298fd262605d1.pdf
 **** Justification of techniques, layout, style and colour
-Distributions can provide insights that summary statistics cant. They can suggest if the different EU states are homogeneous or diverse with respect to certain variables
+Distributions can provide insights that summary statistics cant. They can suggest if the different EU states are homogeneous or diverse with respect to certain variables.
 It might have been necessary to highlight outliers in this data.
 Colour is used here, not primarily to distinguish groups, but help lead the eye up the chart with the increasing age groups.
 **** What does the visualisation show (e.g. relationship between variables, comparison, distribution, composition)
 The graph shows that younger generations tend to be more likely to have made purchases.
 16-24 year old's maybe don't spend as much as 25 - 34 year olds because they dont have as much money.
-75+ age group is heavily concentrated towards the start of the chart. However, there is a split distribution here.
-Surprisingly, Romania and Portugal emerge as outliers.
+75+ age group is heavily concentrated towards the start of the chart. However, there is a split distribution here. There were clusters of countries lagging behind for many distributions, but these were not worth annotating.
 
 *** Problems buying online and seller location
 
@@ -162,6 +154,7 @@ Also, label outliers on national and EU graphs.
 We wanted to show if there was a relationships between encountering problems when ordering online, and the location of the seller.
 
 **** Motivation and justification
+Consumer trust and loyalty in e-commerce is an area that has got some attention in the literature.https://www.sciencedirect.com/science/article/abs/pii/S0305048305000356 https://www.sciencedirect.com/science/article/abs/pii/S0022435901000653
 One of the issues to buying goods and services online can be the location of the seller. There are the obvious advantages of potentially lower prices and better availability, but problems vary in type from fraud to simply not shipping to certain countries. An high-level picture of this would be useful to determine of buying from far-flung foreign sellers is riskier than more local ones.
 **** Justification of techniques, layout, style and colour
 We wanted to illustrate the rate of problems occurring when buying online. Illustrating the correlations with simple, un-annotated regression lines in a plain manner was the simplest means of doing this, without the use of statistical coefficients.
