@@ -1,0 +1,714 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:link="http://purl.org/rss/1.0/modules/link/"
+ xmlns:vcard="http://nwalsh.com/rdf/vCard#"
+ xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/">
+    <bib:Document rdf:about="https://ec.europa.eu/eurostat/statistics-explained/index.php/E-commerce_statistics_for_individuals">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+            <z:Website>
+               <dc:title>Eurostat - Statistics Explained</dc:title>
+            </z:Website>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                       <foaf:surname>Eurostat</foaf:surname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_2"/>
+        <dc:title>Internet user who bought or ordered goods or services for private use in the previous 12 months, by age group, EU-28, 2009-2019.</dc:title>
+        <dc:date>01/2020</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://ec.europa.eu/eurostat/statistics-explained/index.php/E-commerce_statistics_for_individuals</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 18:59:57</dcterms:dateSubmitted>
+    </bib:Document>
+    <z:Attachment rdf:about="#item_2">
+        <z:itemType>attachment</z:itemType>
+        <dc:title>E-commerce statistics for individuals - Statistics Explained</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://ec.europa.eu/eurostat/statistics-explained/index.php/E-commerce_statistics_for_individuals</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 19:00:01</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <bib:Document rdf:about="https://ec.europa.eu/eurostat/web/products-eurostat-news/-/DDN-20200420-2">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+            <z:Website>
+               <dc:title>Eurostat - Statistics Explained</dc:title>
+            </z:Website>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                       <foaf:surname>Eurostat</foaf:surname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_4"/>
+        <dc:title>Online shopping continues to grow</dc:title>
+        <dcterms:abstract>Online shopping is continuing to increase in the European Union (EU). Together with increasing use of the internet and improving security standards, consumers appreciate the possibilities of being able to shop anytime, anywhere, with access to a wide range of products and easy price comparisons. During the current coronavirus pandemic, with high streets in lockdown and consumers under social distancing restrictions, e-commerce can be expected to grow further. 60% of people in the EU aged 16 to 74 shopped online during the year prior to the 2019 survey, compared with 56% in the 2018 survey. Compared with 2009, the share of online shoppers had almost doubled from 32%. Men tend to shop online slightly more than women, with 61% of men and 59% of women shopping online. However, the share of online shoppers has increased more among women over the last 10 years (from 29% in 2009 to 59% in 2019) than among men (from 35% in 2009 to 61% in 2019). The share of online shoppers has increased substantially among all age groups over the last 10 years, in particular for the age groups between 16 and 54 years old. The highest share and the highest increase was among internet users aged 25 to 34 years (from 46% in 2009 to 79% in 2019), followed by the age groups 16 to 24 years (up from 41% to 73%), 35 to 44 years (up from 41% to 71%) and 45 to 54 years (up from 31% to 61%). The share of online shopper rose also in the group of persons aged 55 to 64 years, from 19% in the 2009 survey to 45% in the 2019 survey, as well as for those aged 65 to 74 years (up from 8% to 28%). Data source: isoc_ec_ibuy Looking at the 2019 figures for the EU Member States, high shares of people who shopped online during the previous year were recorded in particular in the Scandinavian countries. The highest shares were found in Denmark (84%) and Sweden (82%), followed by the Netherlands (81%), Germany (79%) and Finland (73%). However, the highest increase over the last 10 years was in Estonia, with the share of online shoppers up 51 percentage points from 17% in 2009 to 68% in 2019. Eurostat has released data for the Community survey 2019 on ICT usage in households and by individuals; methodological information related to the survey can be found here, the full data from the survey is available here. Note: The European Union (EU) includes 27 EU Member States. The United Kingdom left the European Union on 31 January 2020. Further information is published here. Data in the database are organised according to the survey year; the results above refer for the individuals’ activities during the last 12 months prior to the survey. To contact us, please visit our User Support page. For press queries, please contact our Media Support.</dcterms:abstract>
+        <dc:date>20/04/2020</dc:date>
+        <z:language>en-GB</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://ec.europa.eu/eurostat/web/products-eurostat-news/-/DDN-20200420-2</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 19:02:17</dcterms:dateSubmitted>
+    </bib:Document>
+    <z:Attachment rdf:about="#item_4">
+        <z:itemType>attachment</z:itemType>
+        <dc:title>Snapshot</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://ec.europa.eu/eurostat/web/products-eurostat-news/-/DDN-20200420-2</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 19:02:21</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <z:Attachment rdf:about="#item_5">
+        <z:itemType>attachment</z:itemType>
+        <dc:title>ANEC-RT-2015-SERV-005.pdf</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.anec.eu/attachments/ANEC-RT-2015-SERV-005.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 19:04:07</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <bib:Report rdf:about="http://www.anec.eu/attachments/ANEC-RT-2015-SERV-005.pdf">
+        <z:itemType>report</z:itemType>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>Brussels, Belgium</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>ANEC</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Hunter</foaf:surname>
+                        <foaf:givenName>Julie</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Wilson</foaf:surname>
+                        <foaf:givenName>Mark</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Cross-border online shopping within the EU - Learning from consumer experiences</dc:title>
+        <dc:date>02/12/2015</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.anec.eu/attachments/ANEC-RT-2015-SERV-005.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09</dcterms:dateSubmitted>
+    </bib:Report>
+    <bib:Article rdf:about="http://www.sciencedirect.com/science/article/pii/S0022435901000653">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0022-4359"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Srinivasan</foaf:surname>
+                        <foaf:givenName>Srini S.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Anderson</foaf:surname>
+                        <foaf:givenName>Rolph</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Ponnavolu</foaf:surname>
+                        <foaf:givenName>Kishore</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_8"/>
+        <link:link rdf:resource="#item_9"/>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>E-commerce</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>E-loyalty</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+            <z:AutomaticTag>
+               <rdf:value>Internet retailing</rdf:value>
+            </z:AutomaticTag>
+        </dc:subject>
+        <dc:title>Customer loyalty in e-commerce: an exploration of its antecedents and consequences</dc:title>
+        <dcterms:abstract>This paper investigates the antecedents and consequences of customer loyalty in an online business-to-consumer (B2C) context. We identify eight factors (the 8Cs—customization, contact interactivity, care, community, convenience, cultivation, choice, and character) that potentially impact e-loyalty and develop scales to measure these factors. Data collected from 1,211 online customers demonstrate that all these factors, except convenience, impact e-loyalty. The data also reveal that e-loyalty has an impact on two customer-related outcomes: word-of- mouth promotion and willingness to pay more.</dcterms:abstract>
+        <dc:date>March 1, 2002</dc:date>
+        <z:language>en</z:language>
+        <z:shortTitle>Customer loyalty in e-commerce</z:shortTitle>
+        <z:libraryCatalog>ScienceDirect</z:libraryCatalog>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.sciencedirect.com/science/article/pii/S0022435901000653</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 19:10:56</dcterms:dateSubmitted>
+        <bib:pages>41-50</bib:pages>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0022-4359">
+        <prism:volume>78</prism:volume>
+        <dc:title>Journal of Retailing</dc:title>
+        <dc:identifier>DOI 10.1016/S0022-4359(01)00065-3</dc:identifier>
+        <prism:number>1</prism:number>
+        <dcterms:alternative>Journal of Retailing</dcterms:alternative>
+        <dc:identifier>ISSN 0022-4359</dc:identifier>
+    </bib:Journal>
+    <z:Attachment rdf:about="#item_8">
+        <z:itemType>attachment</z:itemType>
+        <dc:title>Full Text</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=7264D362DBB18BE0892F3CC9FD8670A5?doi=10.1.1.470.7684&amp;rep=rep1&amp;type=pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 19:10:59</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <z:Attachment rdf:about="#item_9">
+        <z:itemType>attachment</z:itemType>
+        <dc:title>ScienceDirect Snapshot</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.sciencedirect.com/science/article/abs/pii/S0022435901000653</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 19:11:00</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <rdf:Description rdf:about="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.581.6360&amp;rep=rep1&amp;type=pdf">
+        <z:itemType>conferencePaper</z:itemType>
+        <dcterms:isPartOf>
+           <bib:Journal></bib:Journal>
+        </dcterms:isPartOf>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>Lisbon, Portugal</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>ECMT</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Hultkrantz</foaf:surname>
+                        <foaf:givenName>Ola</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Lumsden</foaf:surname>
+                        <foaf:givenName>Kenth</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>The impact of e-commerce on transport.</dc:title>
+        <dc:date>2001</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.581.6360&amp;rep=rep1&amp;type=pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-09-11</dcterms:dateSubmitted>
+        <bib:presentedAt>
+            <bib:Conference>
+               <dc:title>European conference of ministers of transport</dc:title>
+            </bib:Conference>
+        </bib:presentedAt>
+    </rdf:Description>
+    <bib:Article rdf:about="https://onlinelibrary.wiley.com/doi/abs/10.1162/108819802763471762">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:1530-9290"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Fichter</foaf:surname>
+                        <foaf:givenName>Klaus</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_12"/>
+        <link:link rdf:resource="#item_13"/>
+        <dc:subject>
+            <z:AutomaticTag>
+               <rdf:value>business strategy</rdf:value>
+            </z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>e-commerce</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+            <z:AutomaticTag>
+               <rdf:value>environmental management</rdf:value>
+            </z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+            <z:AutomaticTag>
+                <rdf:value>information and communication technologies (ICT)</rdf:value>
+            </z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>innovation</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>rebound effect</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:title>E-Commerce: Sorting Out the Environmental Consequences</dc:title>
+        <dcterms:abstract>The environmental effects of e-commerce may be described in terms of first-, second-, and third-order effects. Data for these effects are scarce, partly because research on environmental effects of e-commerce and e-business is still in its infancy, although it is evolving very rapidly. Until now, positive environmental consequences of e-commerce have generally been coincidental. Two crucial questions that must be addressed are (1) How do we improve our understanding and management of the environmental effects of e-commerce? and (2) Which approaches are best suited to the development of sustainable e-solutions? Three approaches to developing sustainable e-commerce solutions are discussed: the extension of environmental performance measurement and management to e-commerce activities, the use of new cooperative forms of innovation management, and the provision of customer choice. Finally, an outlook on future research demands is presented. The technology itself (information and communication technologies, Internet) does not determine sustainability, but rather its design, use, and regulation does.</dcterms:abstract>
+        <dc:date>2002</dc:date>
+        <z:language>en</z:language>
+        <z:shortTitle>E-Commerce</z:shortTitle>
+        <z:libraryCatalog>Wiley Online Library</z:libraryCatalog>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://onlinelibrary.wiley.com/doi/abs/10.1162/108819802763471762</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 19:20:44</dcterms:dateSubmitted>
+        <dc:description>_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1162/108819802763471762</dc:description>
+        <bib:pages>25-41</bib:pages>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:1530-9290">
+        <prism:volume>6</prism:volume>
+        <dc:title>Journal of Industrial Ecology</dc:title>
+        <dc:identifier>DOI https://doi.org/10.1162/108819802763471762</dc:identifier>
+        <prism:number>2</prism:number>
+        <dc:identifier>ISSN 1530-9290</dc:identifier>
+    </bib:Journal>
+    <z:Attachment rdf:about="#item_12">
+        <z:itemType>attachment</z:itemType>
+        <dc:title>Full Text PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://onlinelibrary.wiley.com/doi/pdfdirect/10.1162/108819802763471762</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 19:20:48</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <z:Attachment rdf:about="#item_13">
+        <z:itemType>attachment</z:itemType>
+        <dc:title>Snapshot</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://onlinelibrary.wiley.com/doi/abs/10.1162/108819802763471762</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 19:20:48</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <bib:Article rdf:about="http://ropengov.github.io/eurostat">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <prism:volume>9</prism:volume>
+                <dc:title>R Journal</dc:title>
+                <prism:number>1</prism:number>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Lahti</foaf:surname>
+                        <foaf:givenName>Leo</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Biecek</foaf:surname>
+                        <foaf:givenName>Przemyslaw</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Kainu</foaf:surname>
+                        <foaf:givenName>Markus</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Huovari</foaf:surname>
+                        <foaf:givenName>Janne</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Retrieval and analysis of Eurostat open data with the eurostat package.</dc:title>
+        <dc:date>2017</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>http://ropengov.github.io/eurostat</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09</dcterms:dateSubmitted>
+        <bib:pages>385-392</bib:pages>
+    </bib:Article>
+    <bib:Data rdf:about="https://CRAN.R-project.org/package=maps">
+        <z:itemType>computerProgram</z:itemType>
+        <z:programmers>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Deckmyn</foaf:surname>
+                        <foaf:givenName>Alex</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </z:programmers>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>Spatial</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <prism:edition>3.3.0</prism:edition>
+        <dc:title>maps: Draw Geographical Maps</dc:title>
+        <dcterms:abstract>Display of maps. Projection code and larger maps are in separate packages ('mapproj' and 'mapdata').</dcterms:abstract>
+        <dc:date>2018-04-03</dc:date>
+        <z:shortTitle>maps</z:shortTitle>
+        <z:libraryCatalog>R-Packages</z:libraryCatalog>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://CRAN.R-project.org/package=maps</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 19:44:22</dcterms:dateSubmitted>
+        <dc:rights>GPL-2</dc:rights>
+    </bib:Data>
+    <bib:Data rdf:about="https://github.com/rensa/ggflags">
+        <z:itemType>computerProgram</z:itemType>
+        <z:programmers>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Goldie</foaf:surname>
+                        <foaf:givenName>James</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </z:programmers>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>r</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>dataviz</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>flags</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>ggplot2</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+            <z:AutomaticTag>
+               <rdf:value>ggplot2-enhancements</rdf:value>
+            </z:AutomaticTag>
+        </dc:subject>
+        <dc:subject>
+           <z:AutomaticTag><rdf:value>rstats</rdf:value></z:AutomaticTag>
+        </dc:subject>
+        <dc:title>rensa/ggflags</dc:title>
+        <dcterms:abstract>A flag geom for ggplot2. Tweaks the original by using round flags (great for plotting as points).</dcterms:abstract>
+        <dc:date>2020-09-17T05:16:10Z</dc:date>
+        <z:libraryCatalog>GitHub</z:libraryCatalog>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://github.com/rensa/ggflags</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 19:46:58</dcterms:dateSubmitted>
+        <dc:rights>GPL-3.0 License         ,                 GPL-3.0 License</dc:rights>
+        <dc:description>original-date: 2017-08-31T12:46:33Z</dc:description>
+        <z:programmingLanguage>R</z:programmingLanguage>
+    </bib:Data>
+    <bib:Data rdf:about="https://github.com/hihayk/scale">
+        <z:itemType>computerProgram</z:itemType>
+        <z:programmers>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>An</foaf:surname>
+                        <foaf:givenName>Hayk</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </z:programmers>
+        <dc:title>hihayk/scale</dc:title>
+        <dcterms:abstract>Color scale generator. Contribute to hihayk/scale development by creating an account on GitHub.</dcterms:abstract>
+        <dc:date>2020-11-02T20:43:44Z</dc:date>
+        <z:libraryCatalog>GitHub</z:libraryCatalog>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://github.com/hihayk/scale</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 20:16:19</dcterms:dateSubmitted>
+        <dc:description>original-date: 2018-07-26T00:29:21Z</dc:description>
+        <z:programmingLanguage>JavaScript</z:programmingLanguage>
+    </bib:Data>
+    <bib:Document rdf:about="http://www.davidmathlogic.com/colorblind/">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+           <z:Website></z:Website>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Nichols</foaf:surname>
+                        <foaf:givenName>David</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_20"/>
+        <dc:title>Coloring for Colorblindness</dc:title>
+        <dcterms:abstract>This interactive visual tool lets you see how accessible your color palettes are to viewers who are colorblind.</dcterms:abstract>
+        <dc:date>2020</dc:date>
+        <z:language>en</z:language>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>http://www.davidmathlogic.com/colorblind/</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 20:18:12</dcterms:dateSubmitted>
+    </bib:Document>
+    <z:Attachment rdf:about="#item_20">
+        <z:itemType>attachment</z:itemType>
+        <dc:title>Snapshot</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://davidmathlogic.com/colorblind/#%23D81B60-%231E88E5-%23FFC107-%23004D40</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 20:18:15</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <bib:Book rdf:about="urn:isbn:978-1-4822-5738-0">
+        <z:itemType>book</z:itemType>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>Boca Raton, FL</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>A K Peters</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Ward</foaf:surname>
+                        <foaf:givenName>Matthew</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Grinstein</foaf:surname>
+                        <foaf:givenName>George</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Keim</foaf:surname>
+                        <foaf:givenName>Daniel</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Interactive Data Visualization: Foundations, Techniques, and Application</dc:title>
+        <dc:date>2015</dc:date>
+        <dc:identifier>ISBN 978-1-4822-5738-0</dc:identifier>
+        <prism:edition>2</prism:edition>
+    </bib:Book>
+    <bib:Book rdf:about="urn:isbn:978-1-5264-6893-2">
+        <z:itemType>book</z:itemType>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>London</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>SAGE</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Kirk</foaf:surname>
+                        <foaf:givenName>Andy</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:title>Data Visualisation: A Handbook for Data Driven Design.</dc:title>
+        <dc:date>2019</dc:date>
+        <dc:identifier>ISBN 978-1-5264-6893-2</dc:identifier>
+        <prism:edition>2</prism:edition>
+    </bib:Book>
+    <bib:Article rdf:about="http://repository.londonmet.ac.uk/88/">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:1756-1078"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Lawrence</foaf:surname>
+                        <foaf:givenName>Japhet Eke</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Tar</foaf:surname>
+                        <foaf:givenName>Usman A.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_24"/>
+        <link:link rdf:resource="#item_25"/>
+        <dc:title>Barriers to e-commerce in developing countries</dc:title>
+        <dcterms:abstract>Electronic commerce (EC) has the potential to improve efficiency and productivity in many areas and, therefore, has received significant attention in many countries. However, there has been some doubt about the relevance of ecommerce for developing countries. The absence of adequate basic infrastructural, socio-economic and the lack of government national ICT strategies have created a significant barrier in the adoption and growth of e-commerce in developing countries. The study shows that, in order to understand the adoption and diffusion of e-commerce in developing countries, cultural issues need to be considered. In this paper, we present and discuss these issues hindering e-commerce adoption in developing countries.</dcterms:abstract>
+        <dc:date>2010-01</dc:date>
+        <z:language>en</z:language>
+        <z:libraryCatalog>repository.londonmet.ac.uk</z:libraryCatalog>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>http://repository.londonmet.ac.uk/88/</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 20:40:42</dcterms:dateSubmitted>
+        <dc:description>Number: 1
+Publisher: Faculty of Social Sciences and Humanities, London Metropolitan University</dc:description>
+        <bib:pages>23-35</bib:pages>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:1756-1078">
+        <prism:volume>3</prism:volume>
+        <dc:title>Information, society and justice journal</dc:title>
+        <prism:number>1</prism:number>
+        <dc:identifier>ISSN 1756-1078</dc:identifier>
+    </bib:Journal>
+    <z:Attachment rdf:about="#item_24">
+        <z:itemType>attachment</z:itemType>
+        <dc:title>Full Text PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://repository.londonmet.ac.uk/88/1/InformationSocietyAndJustice_v3n1_p23-35.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 20:40:42</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+    <z:Attachment rdf:about="#item_25">
+        <z:itemType>attachment</z:itemType>
+        <dc:title>Snapshot</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>http://repository.londonmet.ac.uk/88/</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 20:40:45</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+    <bib:Book rdf:about="urn:isbn:978-0-226-43608-1">
+        <z:itemType>book</z:itemType>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>Chicago, IL</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>University of Chicago Press</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Monmonier</foaf:surname>
+                        <foaf:givenName>Mark</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_27"/>
+        <dc:title>How to Lie with Maps, Third Edition</dc:title>
+        <dcterms:abstract>An instant classic when first published in 1991, How to Lie with Maps revealed how the choices mapmakers make—consciously or unconsciously—mean that every map inevitably presents only one of many possible stories about the places it depicts. The principles Mark Monmonier outlined back then remain true today, despite significant technological changes in the making and use of maps. The introduction and spread of digital maps and mapping software, however, have added new wrinkles to the ever-evolving landscape of modern mapmaking.​Fully updated for the digital age, this new edition of How to Lie with Maps examines the myriad ways that technology offers new opportunities for cartographic mischief, deception, and propaganda. While retaining the same brevity, range, and humor as its predecessors, this third edition includes significant updates throughout as well as new chapters on image maps, prohibitive cartography, and online maps. It also includes an expanded section of color images and an updated list of sources for further reading.</dcterms:abstract>
+        <dc:date>April 13, 2018</dc:date>
+        <z:language>English</z:language>
+        <z:libraryCatalog>Amazon</z:libraryCatalog>
+        <dc:identifier>ISBN 978-0-226-43608-1</dc:identifier>
+        <prism:edition>3rd ed. edition</prism:edition>
+        <z:numPages>252</z:numPages>
+    </bib:Book>
+    <z:Attachment rdf:about="#item_27">
+        <z:itemType>attachment</z:itemType>
+        <dc:title>Amazon.com Link</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://www.amazon.com/How-Maps-Third-Mark-Monmonier-ebook-dp-B07C6F9TC5/dp/B07C6F9TC5/ref=mt_other?_encoding=UTF8&amp;me=&amp;qid=</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2020-11-09 20:43:54</dcterms:dateSubmitted>
+        <z:linkMode>3</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+</rdf:RDF>
