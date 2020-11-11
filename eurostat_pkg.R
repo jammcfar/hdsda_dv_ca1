@@ -495,7 +495,7 @@ ggplot(dat_bar, aes(y = indic_is, x = values)) +
            hjust = 0, size = 3) +
   coord_cartesian(xlim = c(0, 60)) +
   labs(title = "Money spent online",
-       subtitle = "Among individuals who have purchased goods online in the last 3 months",
+       subtitle = "Among individuals who have purchased goods online in the last 3 months\n(2019 data)",
        x = "", y = "Euros") +
   theme_classic() +
   theme(axis.line = element_blank(),
@@ -664,10 +664,17 @@ plot4_pre <-
  # mutate(values = (22/7)*(values^2)) %>%
   mutate(values = (values/3.14)^0.5) %>%
   ggplot(aes(country)) +
-  geom_flag(aes(x = indic_is, y = c_rank, country = code, size = values)) +
+ geom_flag(aes(x = indic_is, y = c_rank, country = code, size = values)) +
+  geom_text(data = dat_flags,
+            aes(x = indic_is, y = c_rank, label = paste0(toupper(code))),
+            vjust = -2.5,
+  ##          hjust = 1,
+            size = 1.35,
+            colour = "grey30") +
   geom_text(data = dat_flags,
             aes(x = indic_is, y = c_rank, label = paste0(values, "%")),
-            vjust = 5,
+            vjust = 4,
+ ##           hjust = -0.35,
             size = 1.25,
             colour = "grey50") +
  ## facet_wrap(~ indic_is) +
@@ -681,7 +688,7 @@ theme(axis.line = element_blank(),
       axis.ticks = element_blank(),
       text = element_text(size = 5)) +
 labs(title = "Top five most popular types of purchases",
-     subtitle = "Using data from individuals with online purchases\n in the last 3 months",
+     subtitle = "Using data from individuals with online purchases\n in the last 3 months (2019 data)",
   x = "",
      y = "Top 5 states (from left to right)",
      size = "% of individuals\nwith purchases\nin last 3 months")
@@ -732,12 +739,6 @@ dat %>%
 mutate(usage = fct_relevel(usage, "Never", "Sometimes", "Always")) %>%
 mutate(buy_type = fct_relevel(buy_type, "Customer reviews", "Product comparison sites", "Comparing sites manually"))
 
-
-dat_strategies %>%
-  ggplot(aes(y = buy_type, x = values, fill = usage)) +
-  geom_density_ridges(alpha = 0.5) +
-  geom_point()
-
 ## a small df to label top and bottom
 strats_top <-
   bind_rows(
@@ -783,8 +784,8 @@ theme(axis.line.x = element_blank(),
       axis.ticks.x = element_blank()) +
   labs(x = "",
        y = "% of individuals",
-       title = "Comparing online buying strategies (2019)",
-       subtitle = "Dots represent indivdual european countries, bar represents the average",
+       title = "Comparing responses to online buying strategies",
+       subtitle = "Dots represent individual EU28 states using 2019 data, black bars = average",
        fill = "How often do\nthey use these\nmethods?")
 
 
@@ -923,7 +924,7 @@ plot6_age + plot_gend +plot_annotation(
 ##fuck the above, its based on ADs!===================================
 dat_gend <-
 dat_purc %>%
-  filter(str_detect(unit, "Percentage of individuals"),
+  filter(unit == "Percentage of individuals",
          !str_detect(geo, "Euro"),
          str_detect(ind_type, "Males, 16 to 74|Females, 16 to 74"),
          indic_is == "Last online purchase: in the last 3 months",
@@ -946,7 +947,9 @@ ungroup()
 
 plot_gend <-
 ggplot(dat_gend, aes(x = values, y = ind_type, fill = ind_type)) +
-  geom_density_ridges(stat = "binline", alpha = 0.8, scale = 1) +
+  geom_density_ridges(stat = "binline",
+                      alpha = 0.8,
+                      scale = 0.8) +
 #  geom_text_repel(data = dat_gend_top3,
 #                  aes(label = geo),
 #                  nudge_y = -0.2,
@@ -959,20 +962,22 @@ ggplot(dat_gend, aes(x = values, y = ind_type, fill = ind_type)) +
        ##subtitle = "Bars made up of European countries, black dot is the median",
     x = "% with online purchases in the last 3 months",
        y = "") +
-  scale_fill_manual(values = c("#8A4B1E", "#1E448A"))
+  scale_fill_manual(values = c("#8A4B1E", "#1E448A")) +
+  coord_cartesian(xlim = c(0, 100))
 
 
 #now age!
 dat_age <-
 dat_purc %>%
-  filter(str_detect(unit, "Percentage of individuals"),
+  filter(unit == "Percentage of individuals",
          !str_detect(geo, "Euro"),
          str_detect(ind_type, "Individuals, "),
          indic_is == "Last online purchase: in the last 3 months",
          time == 2019) %>%
-filter(!str_detect(ind_type, "15 years|25 to 54|25 to 64|55 to 74")) %>%
+filter(!str_detect(ind_type, "15 years|25 to 54|25 to 64|55 to 74|75 years")) %>%
 filter(!str_detect(ind_type, "16 to 19|16 to 29|20 to 24|25 to 29")) %>%
-mutate(ind_type = str_remove(ind_type, "Individuals, "))
+mutate(ind_type = str_remove(ind_type, "Individuals, ")) %>%
+mutate(ind_type = str_remove(ind_type, " years old"))
 
 dat_age_means <-
   dat_age %>%
@@ -986,11 +991,27 @@ dat_age %>%
 top_n(1, values) %>%
 ungroup()
 
+ddat_age_top3 <-
+dat_age %>%
+  group_by(ind_type) %>%
+  arrange(values) %>%
+top_n(2, values)
+
+"UK and DK\nrank top"
+"RO and BG\nrank bottom"
 
 plot6_age <-
 ggplot(dat_age, aes(x = values, y = ind_type, fill = ind_type)) +
-  geom_density_ridges(stat = "binline", alpha = 0.8, scale = 1) +
+  geom_density_ridges(stat = "binline", alpha = 0.8, scale = 1.3) +
   geom_point(data = dat_age_means, aes(x = mean_val, y = ind_type), size = 2) +
+  annotate("text", x = 75, y = 5.5,
+           label = "UK and DK\nrank top\nevery time",
+           colour = "grey50",
+           hjust = 0, size = 2.5) +
+  annotate("text", x = 1, y = 1.5,
+           label = "RO and BG\nrank bottom\nevery time",
+           colour = "grey50",
+           hjust = 0, size = 2.5) +
   theme_classic() +
   theme(legend.position = "none") +
   scale_fill_manual(values =
@@ -1004,12 +1025,12 @@ c("#1E448A",
   labs(##title = "Is buying online different between age groups?",
        ##subtitle = "Bars made up of European countries, black dot is the median",
     x = "% with online purchases in the last 3 months",
-    y = "")
+    y = "Years old")
 
 plot6 <-
 plot6_age + plot_gend +plot_annotation(
-  title = 'Does online buying vary with age and gender?',
-  subtitle = 'Bars made up of states in the EU28, black dots are the average'
+  title = 'Variation of online purchasing with age and gender',
+  subtitle = 'Bars made up of EU28 states with 2019 data, black dots = average'
 )
 
 ggsave(filename = "plot6.png",
@@ -1106,6 +1127,12 @@ dat_sells_meds <-
                          indic_is.x == "Unknown" ~ "Strong correlation\nwith problems")
          )
 
+dat_sells_locs %>%
+filter(indic_is.x == "National") %>%
+arrange(values.x) %>%
+
+
+
 plot7 <-
 dat_sells_locs %>%
 ggplot(aes(x = values.x,
@@ -1122,7 +1149,7 @@ theme_classic() +
 theme(legend.position = "none") +
 labs(x = "% of individuals who has purchased online in the last year", y = "% who have encountered problems",
      title = "The association between seller location and problems",
-     subtitle = "Points are data from individual EU states",
+     subtitle = "Points are data from individual EU states (2019)",
      colour = "Seller\norigin", shape = "Seller\norigin") +
 scale_colour_manual(values = c("#75B6BC", "#3A6F9B", "#1E448A", "#14326A")) +
 scale_fill_manual(values = c("#75B6BC", "#3A6F9B", "#1E448A", "#14326A")) +
