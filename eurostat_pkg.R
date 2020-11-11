@@ -408,19 +408,13 @@ df_j %>%
 ggplot() +
   geom_polygon(aes(fill = val_c, x = long, y = lat, group = group), colour = "grey80", size = 0.5) +
   geom_text(aes(label = geo.time, x = long, y = lat), data = region.lab.data,  size = 3, hjust = 0.5, colour = "#FDCB0B") +
-  #scale_fill_viridis_c(na.value = "grey80")+
   theme_void()+
-##  theme(legend.position = "none") +
 coord_cartesian(x = c(-10, 30), y = c(36, 70)) +
 scale_fill_manual(drop = F,
                   na.value = "grey75",
                   values = c("#93CCC6","#75B6BC", "#5795AC", "#3A6F9B","#1E448A"   )
                   ) +
-#scale_fill_stepsn(na.value = "grey75",
-#                  colours = c("#93CCC6","#75B6BC", "#5795AC", "#3A6F9B","#1E448A"   ),
- #
-  #               breaks = c(0,20,40,60,80,100))+
-  labs(title = "How do EU28 states differ in online purchasing?",
+  labs(title = "The variations in online purchasing between EU28 states",
        subtitle = "% of individuals who have purchased online in the last year (2019)",
        fill = "% of\nindividuals")# +
 guides(fill = guide_legend(guide_legend(
@@ -428,15 +422,16 @@ guides(fill = guide_legend(guide_legend(
          keyheight = unit(3, units = "mm"),
                                         keywidth=unit(12, units = "mm"),
                                         label.position = "bottom",
-         title.position = 'top', nrow=1)))
-#scale_fill_viridis_b(na.value = "grey75", scale_color_steps())
+         title.position = 'top', nrow=1))) +
+  theme(rect = element_rect(fill = "transparent"))
 
 ggsave(filename = "plot2.png",
        plot = plot_2,
        height = 12,
-       width = 16,
+       width = 14,
        units = "cm",
-       dpi = 500)
+       dpi = 300,
+       bg = "transparent")
 
 
 ##graph 3: Stacked bar============================================================
@@ -509,6 +504,45 @@ ggsave(filename = "plot3.png",
        units = "cm",
        dpi = 500)
 
+## for infographic
+
+plot3_info <-
+ggplot(dat_bar, aes(y = indic_is, x = values)) +
+  geom_col(colour = "#1E448A", fill = "#1E448A") +
+  geom_text(aes(label = paste0(values, "%"),
+                x = values,
+                y = indic_is,
+                hjust = 1.35),
+            size = 2.5,
+            colour = "#FDCB0B") +
+##  annotate("text", x = 11, y = 5,
+##           label = "45% of these are in\nthe highest income quartile",
+##           colour = "grey50",
+##           hjust = 0, size = 3) +
+##  annotate("text", x = 17, y = 1,
+##           label = "46% of these are in\nthe lowest income quartile",
+##           colour = "grey50",
+##           hjust = 0, size = 3) +
+  coord_cartesian(xlim = c(0, 60)) +
+  labs(##title = "Money spent online",
+       ##subtitle = "Among individuals who have purchased goods online in the last 3 months\n(2019 data)",
+       x = "", y = "Euros") +
+  theme_classic() +
+  theme(axis.line = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks = element_blank(),
+        rect = element_rect(fill = "transparent"),
+         plot.background = element_rect(fill = "transparent", color = NA))
+
+
+ggsave(filename = "plot3_info.png",
+       plot = plot3_info,
+       height = 5,
+       width = 8,
+       units = "cm",
+       dpi = 300,
+       bg = "transparent")
+
 ##check up on mobile/non mobile users
 money_check <-
   dat_purc %>%
@@ -524,6 +558,23 @@ money_check <-
                              str_detect(indic_is, "1000 euro or more") ~ "1000 or more")) %>%
  filter(!is.na(indic_is)) %>%
  mutate(indic_is = factor(indic_is, levels = c("< 50", "50 - 99", "100 - 499", "500 - 999", "1000 or more")))
+
+
+##check who spends the most
+  dat_purc %>%
+    filter(ind_type == "All Individuals",
+        str_detect(indic_is, "3 months for"),
+        !str_detect(geo, "Euro"),
+        str_detect(unit, "online in the last 3 months"),
+        time == 2019) %>%
+ mutate(indic_is = case_when(str_detect(indic_is , "50 euro") ~ "< 50",
+                             str_detect(indic_is, "50 and 99") ~ "50 - 99",
+                             str_detect(indic_is, "100 and 499") ~ "100 - 499",
+                             str_detect(indic_is, "500 and 999") ~ "500 - 999",
+                             str_detect(indic_is, "1000 euro or more") ~ "1000 or more")) %>%
+    group_by(indic_is) %>%
+    top_n(3, values)
+
 
 ##graph 4: Heatmap================================================================
 
@@ -677,8 +728,6 @@ plot4_pre <-
  ##           hjust = -0.35,
             size = 1.25,
             colour = "grey50") +
- ## facet_wrap(~ indic_is) +
-# scale_size(range = c(2.006, 4.484), guide = F) +
 
 scale_size(range = c(3.29, 4.92), guide = F) +
 coord_cartesian(ylim = c(-1, 6)) +
@@ -686,19 +735,22 @@ coord_flip() +
 theme_classic() +
 theme(axis.line = element_blank(),
       axis.ticks = element_blank(),
-      text = element_text(size = 5)) +
+      text = element_text(size = 5),
+      rect = element_rect(fill = "transparent")) +
 labs(title = "Top five most popular types of purchases",
      subtitle = "Using data from individuals with online purchases\n in the last 3 months (2019 data)",
   x = "",
      y = "Top 5 states (from left to right)",
-     size = "% of individuals\nwith purchases\nin last 3 months")
+  size = "% of individuals\nwith purchases\nin last 3 months")
+
 #probably close enough to area
 ggsave(filename = "plot4_pre.png",
        plot = plot4_pre,
        height = 8,
        width = 7,
        units = "cm",
-       dpi = 500)
+       dpi = 500,
+       bg = "transparent")
 
 ggsave(filename = "plot4_pre.png",
        plot = plot4_pre,
@@ -709,15 +761,33 @@ ggsave(filename = "plot4_pre.png",
 
 
 
-set.seed(1234)
-d <- data.frame(x=rnorm(50), y=rnorm(50),
-                country=sample(c("ar","fr", "nz", "gb", "es", "ca"), 50, TRUE),
+
+##extra flags
+flag_extras <-
+  tibble(x = c(1,1,2,2,3,3),
+         y = c(1,2,1,2,1,2),
+         codes = c("fn", "gb", "lu", "lv", "pt", "bg")) %>%
+  ggplot(aes(x = x, y = y, country = codes)) +
+  geom_flag( size = 4) +
+  theme_classic()
+
+d <- data.frame(x=rnorm(10), y=rnorm(10),
+                country=sample(c("fi", "lu", "lv", "pt"), 10, TRUE),
                 stringsAsFactors = FALSE)
-ggplot(d, aes(x=x, y=y, country=country, size=x)) +
+
+flags_plot_extra <-
+ggplot(d, aes(x=x, y=y, country=country)) +
   geom_flag() +
   scale_country() +
-  scale_size(range = c(2, 15))
+  scale_size(range = c(0, 15)) +
+  theme_classic()
 
+ggsave(filename = "plotflags_extra.png",
+       plot = flags_plot_extra,
+       height = 4,
+       width = 4,
+       units = "cm",
+       dpi = 500)
 
 
 ##  Graph 5:buying strategies======================================================================
@@ -789,6 +859,7 @@ theme(axis.line.x = element_blank(),
        fill = "How often do\nthey use these\nmethods?")
 
 
+
 ggsave(filename = "plot5_pre.png",
        plot = plot5,
        height = 12,
@@ -796,6 +867,60 @@ ggsave(filename = "plot5_pre.png",
        units = "cm",
        dpi = 500)
 
+
+##for infographic
+
+dat_strategies_info <-
+dat %>%
+  filter(str_detect(unit, "who ordered goods"),
+         str_detect(geo, "28"),
+         ind_type == "All Individuals") %>%
+  mutate(buy_type = case_when(str_detect(indic_is, "customer reviews") ~ "Customer reviews",
+                              str_detect(indic_is, "product comparison") ~ "Product comparison sites",
+                            ##  str_detect(indic_is, "advertisement") ~ "Advertisements",
+                              str_detect(indic_is, "several retailer") ~ "Comparing sites manually"),
+         usage = case_when(str_detect(indic_is, "never") ~ "Never",
+                           str_detect(indic_is, "some times") ~ "Sometimes",
+                           str_detect(indic_is, "every time") ~ "Always",
+                           str_detect(indic_is, "did not buy") ~ "No",
+                           str_detect(indic_is, "bought/ordered online") ~ "Yes")
+         ) %>%
+mutate(usage = fct_relevel(usage, "Never", "Sometimes", "Always")) %>%
+mutate(buy_type = fct_relevel(buy_type, "Customer reviews", "Product comparison sites", "Comparing sites manually"))
+
+dat_strategies_info %>%
+
+plot_strat_info <-
+dat_strategies_info %>%
+    filter(buy_type != "Advertisements") %>%
+ggplot(aes(y = usage, x = values)) +
+  geom_col(colour = "#1E448A", fill = "#1E448A") +
+  geom_text(aes(label = paste0(values, "%"),
+                x = values,
+                y = usage,
+                hjust = 1.35),
+            size = 2.5,
+            colour = "#FDCB0B") +
+  coord_cartesian(xlim = c(0, 60)) +
+  facet_wrap(buy_type ~ ., scales = "free_y", ncol = 1) +
+  labs(##title = "Money spent online",
+       ##subtitle = "Among individuals who have purchased goods online in the last 3 months\n(2019 data)",
+       x = "", y = "") +
+  theme_classic() +
+  theme(axis.line = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks = element_blank(),
+        rect = element_rect(fill = "transparent"),
+         plot.background = element_rect(fill = "transparent", color = NA))
+
+
+ggsave(filename = "plot_strat_info.png",
+       plot = plot_strat_info,
+       height = 8,
+       width = 7,
+       units = "cm",
+       dpi = 500,
+       bg = "transparent")
 
 #Graph 6: ``#try a histogram of advertisements====================================================
 
@@ -1041,6 +1166,45 @@ ggsave(filename = "plot6.png",
        dpi = 500)
 
 
+##age plot for infographic
+plot6_age_info <-
+ggplot(dat_age, aes(x = values, y = ind_type, fill = ind_type)) +
+stat_density_ridges(quantile_lines = TRUE, quantiles = 2)+
+  theme_classic() +
+  theme(legend.position = "none",
+        rect = element_rect(fill = "transparent")) +
+  scale_fill_manual(values =
+c("#1E448A",
+"#3A6F9B",
+"#5795AC",
+"#75B6BC",
+"#93CCC6",
+"#B1DBCF",
+"#D0EADE")) +
+  geom_label(data = dat_age_means,
+            aes(x = mean_val,
+                y = ind_type,
+                label = paste0(round(mean_val, 0), "%")),
+            size = 3,
+            colour = "#FDCB0B",
+            hjust = -0.5,
+            vjust = -0.5,
+            fill = "grey85",
+            alpha = 0.75) +
+  labs(##title = "Is buying online different between age groups?",
+       ##subtitle = "Bars made up of European countries, black dot is the median",
+    x = "% with online purchases in the last 3 months",
+    y = "Years old")
+
+ggsave(filename = "plot6_info.png",
+       plot = plot6_age_info,
+       height = 5,
+       width = 8,
+       units = "cm",
+       dpi = 300,
+       bg = "transparent")
+
+
 ##Who isn't buying===============================================================
 unique(dat_barr$geo)
 unique(dat_barr$ind_type)
@@ -1163,6 +1327,152 @@ ggsave(filename = "plot7.png",
        width = 16,
        units = "cm",
        dpi = 500)
+
+
+##do inforgraphic version
+
+dat_sells_locs <-
+    dat_purc_2019 %>%
+    left_join(dat_prob_2019, by = c("geo" = "geo")) %>%
+    mutate(indic_is.x = str_remove(indic_is.x, "Online purchases: from")) %>%
+    mutate(indic_is.x = str_to_sentence(indic_is.x)) %>%
+    mutate(indic_is.x = case_when(str_detect(indic_is.x, "National") ~ "Nationally",
+                                  str_detect(indic_is.x, "eu c") ~ "Within EU",
+                                  str_detect(indic_is.x, "non-eu") ~ "Outside EU",
+                                  str_detect(indic_is.x, "unknown") ~ "Unknown"
+                                  )) %>%
+    mutate(indic_is.x = factor(indic_is.x, c("Nationally", "Within EU", "Outside EU", "Unknown")))
+
+dat_sells_locs %>%
+filter(geo == "Austria") %>%
+select(indic_is.x, indic_is.y, values.x, values.y)
+
+dat_sells_meds <-
+  dat_sells_locs %>%
+  group_by(indic_is.x) %>%
+  summarise(mean_x = mean(values.x, na.rm = T),
+            mean_y = mean(values.y, na.rm = T)) %>%
+  ungroup() %>%
+  mutate(my_lab = case_when(indic_is.x == "Nationally" ~ "Fewer problems",
+                         indic_is.x == "Within EU" ~ "Few problems",
+                         indic_is.x == "Outside EU" ~ "More problems",
+                         indic_is.x == "Unknown" ~ "Alot of problems")
+         )
+plot7_info <-
+dat_sells_locs %>%
+ggplot(aes(x = values.x,
+           y = values.y,
+           shape = indic_is.x,
+           fill = indic_is.x,
+           colour = indic_is.x)) +
+  geom_point(alpha = 0.75) +
+geom_smooth(method = "lm", se = F) +
+geom_label(data = dat_sells_meds,
+           aes(x = mean_x, y = mean_y, label = my_lab), size = 3, fill = "white", alpha = 0.75) +
+facet_wrap(.~indic_is.x) +
+theme_classic() +
+theme(legend.position = "none") +
+labs(x = "% of individuals who purchase online", y = "% who had problems",
+##     title = "The association between seller location and problems",
+ ##    subtitle = "Points are data from individual EU states (2019)",
+     colour = "Seller\norigin", shape = "Seller\norigin") +
+scale_colour_manual(values = c("#75B6BC", "#3A6F9B", "#1E448A", "#14326A")) +
+scale_fill_manual(values = c("#75B6BC", "#3A6F9B", "#1E448A", "#14326A")) +
+scale_shape_manual(values = c(21,22,23,24)) +
+coord_cartesian(xlim = c(-10,110)) +
+scale_x_continuous(breaks = c(0,20,40,60,80,100))
+
+ggsave(filename = "plot7_info.png",
+       plot = plot7_info,
+       height = 8,
+       width = 9,
+       units = "cm",
+       dpi = 500)
+
+
+
+##ridgeline version for infographic
+
+
+dat_purc_means <-
+  dat_purc_info %>%
+  group_by(indic_is) %>%
+  summarise(mean_val = mean(values))
+
+
+dat_purc_info <-
+dat_purc %>%
+   filter(str_detect(unit, " in the last year"),
+         ind_type == "All Individuals",
+         str_detect(indic_is, ": from sellers|from national"),
+         !str_detect(geo, "Euro"),
+         time == 2019) %>%
+filter(!str_detect(indic_is, "from sellers abroad")) %>%
+    mutate(indic_is = case_when(str_detect(indic_is, "national") ~ "Nationally",
+                                  str_detect(indic_is, "EU c") ~ "Within EU",
+                                  str_detect(indic_is, "non-EU") ~ "Outside EU",
+                                  str_detect(indic_is, "unknown") ~ "Unknown"
+                                )) %>%
+mutate(indic_is = factor(indic_is, c("Unknown",   "Outside EU", "Within EU" ,"Nationally")))
+
+plot_sell_ridge <-
+ggplot(dat_purc_info, aes(x = values, y = indic_is, fill = indic_is)) +
+stat_density_ridges(quantile_lines = TRUE, quantiles = 2)+
+  theme_classic() +
+  theme(legend.position = "none",
+        rect = element_rect(fill = "transparent")) +
+  scale_fill_manual(values =
+c("#1E448A",
+"#5795AC",
+"#75B6BC","#B1DBCF")) +
+  geom_text(data = dat_purc_means,
+            aes(x = mean_val,
+                y = indic_is,
+                label = paste0(round(mean_val, 0), "%")),
+            size = 4,
+            colour = "#FDCB0B",
+            hjust = -0.5,
+            vjust = -0.5) +
+  labs(##title = "Is buying online different between age groups?",
+       ##subtitle = "Bars made up of European countries, black dot is the median",
+    x = "% with online purchases in\nlast 3 months",
+    y = "Years old")
+
+
+plot_sell_ridge <-
+ggplot(dat_purc_info, aes(x = values, y = indic_is, fill = indic_is)) +
+stat_density_ridges(quantile_lines = TRUE, quantiles = 2)+
+  theme_classic() +
+  theme(legend.position = "none",
+        rect = element_rect(fill = "transparent")) +
+  scale_fill_manual(values =
+c("#1E448A",
+"#5795AC",
+"#75B6BC","#B1DBCF")) +
+  geom_label(data = dat_purc_means,
+            aes(x = mean_val,
+                y = indic_is,
+                label = paste0(round(mean_val, 0), "%")),
+            size = 4,
+            colour = "#818181",
+            hjust = -0.5,
+            vjust = -0.5,
+            fill = "#f2f5f9") +
+  labs(##title = "Is buying online different between age groups?",
+       ##subtitle = "Bars made up of European countries, black dot is the median",
+    x = "% with online purchases in\nlast 3 months",
+    y = "Years old")
+
+
+ggsave(filename = "plot_sell_ridge.png",
+       plot = plot_sell_ridge,
+       height = 8,
+       width = 8,
+       units = "cm",
+       dpi = 300,
+       bg = "transparent")
+
+
 
 
 ##try just a using euro region
